@@ -1,0 +1,78 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <LangVersion>latest</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <TargetFrameworks>net10.0;net8.0</TargetFrameworks>
+        <Version>0.10.0</Version>
+        <Title>TruePath TestableIO.System.IO  extensions </Title>
+        <Description>Bridges TruePath and TestableIO.System.IO Presents extension methods for the Testable.System.IO mapping to AbsoutePath (TruePath)</Description>
+        <RepositoryUrl>https://github.com/jeppevammenkristensen/FileBasedApp.Toolkit</RepositoryUrl>
+        <PackageTags>TruePath </PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Include="README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="TestableIO.System.IO.Abstractions.Wrappers" Version="22.1.0" />
+      <PackageReference Include="Testably.Abstractions.FileSystem.Interface" Version="10.0.0" />
+      <PackageReference Include="TruePath" Version="1.11.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="DirectoryExtensions.FileSystem.cs">
+        <DependentUpon>DirectoryExtensions.cs</DependentUpon>
+      </Compile>
+      <Compile Update="FileExtensions.FileSystem.cs">
+        <DependentUpon>FileExtensions.cs</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <!-- This is related to importing the Directory.Build.props from the root of the repo, which defines some properties based on the TargetFramework. We need to redefine them here to ensure they are available for conditional compilation in this project. -->
+    <PropertyGroup>
+        <IS_NET21_OR_HIGHER Condition="'$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net9.0' OR '$(TargetFramework)' == 'net10.0' OR '$(TargetFramework)' == 'netstandard2.1'">1</IS_NET21_OR_HIGHER>
+        <IS_NET6_OR_HIGHER Condition="'$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net9.0' OR '$(TargetFramework)' == 'net10.0'">1</IS_NET6_OR_HIGHER>
+        <IS_NET8_OR_HIGHER Condition="'$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net9.0' OR '$(TargetFramework)' == 'net10.0'">1</IS_NET8_OR_HIGHER>
+        <IS_NET9_OR_HIGHER Condition="'$(TargetFramework)' == 'net9.0' OR '$(TargetFramework)' == 'net10.0'">1</IS_NET9_OR_HIGHER>
+        <IS_NET10_OR_HIGHER Condition="'$(TargetFramework)' == 'net10.0'">1</IS_NET10_OR_HIGHER>
+
+        <DefineConstants Condition="'$(TargetFramework)' == 'net48' OR '$(TargetFramework)' == 'netstandard2.0'">$(DefineConstants);NETFRAMEWORK</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET6_OR_HIGHER)' == '1'">$(DefineConstants);CAN_SIMULATE_OTHER_OS</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET21_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_FILESYSTEM_ASYNC</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET21_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_FILESYSTEM_ENUMERATION_OPTIONS</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET21_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_PATH_JOIN</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET21_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_PATH_RELATIVE</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET21_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_SPAN</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET21_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_GUID_PARSE</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET21_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_VALUETASK</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET21_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_COMPRESSION_OVERWRITE</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET21_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_COMPRESSION_ADVANCED</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET21_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_ASYNC_DISPOSABLE</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET6_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_FILESYSTEM_STREAM_OPTIONS</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET6_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_FILESYSTEM_LINK</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET6_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_PATH_ADVANCED</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET6_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_FILE_MOVETO_OVERWRITE</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET6_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_RANDOM_ADVANCED</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET6_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_FILESYSTEMWATCHER_ADVANCED</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET6_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_EXCEPTION_HRESULT</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET8_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_FILESYSTEM_COMMENT_ENCRYPTED</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET8_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_FILESYSTEM_NET_7_OR_GREATER</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET8_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_FILESYSTEM_SAFEFILEHANDLE</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET8_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_FILESYSTEM_UNIXFILEMODE</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET8_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_GUID_FORMATPROVIDER</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET8_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_RANDOM_ITEMS</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET8_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_COMPRESSION_STREAM</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET8_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_STOPWATCH_GETELAPSEDTIME</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET9_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_PATH_SPAN</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET9_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_FILE_SPAN</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET9_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_GUID_V7</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET10_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_GUID_PARSE_UTF8</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET10_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_RANDOM_STRINGS</DefineConstants>
+        <DefineConstants Condition="'$(IS_NET10_OR_HIGHER)' == '1'">$(DefineConstants);FEATURE_COMPRESSION_ASYNC</DefineConstants>
+    </PropertyGroup>
+    
+</Project>
