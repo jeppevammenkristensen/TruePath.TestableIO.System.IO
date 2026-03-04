@@ -35,11 +35,42 @@ var myPath = new AbsolutePath("/var/log/app.log");
 // Extension method on IFile that takes AbsolutePath
 fileSystem.File.WriteAllText(myPath, "Hello, TruePath!");
 
+// Where possible there will also be direct extensions methods against an AbsolutePath
+// So the above could also be achieved with:
+myPath.WriteAllText("Hello");
+
+// This method supports adding the fileSystem so this would also be possible
+myPath.WriteAllText("Hello", fileSystem);
+
+// Note that the fileSystem will default to null. In case of nulls a new instance of FileSystem will be created by the method
+
 if (fileSystem.File.Exists(myPath))
 {
     var content = fileSystem.File.ReadAllText(myPath);
 }
 ```
+
+#### Extension example
+
+In the example above. There will be the following extensions methods. Note that this pattern as general rule is followed by other extensions methods.
+
+There are some variations. For instance Exists will be DirectoryExists on the extension of an AbsolutePath
+
+```csharp
+public static void WriteAllText(this IFile file, AbsolutePath path, ReadOnlySpan<char> contents)
+{
+    file.WriteAllText(path.Value, contents);
+}
+```
+
+```csharp
+public static void WriteAllText(this AbsolutePath path, ReadOnlySpan<char> contents, FileSystem? fileSystem = null)
+{
+    fileSystem ??= new FileSystem();
+    fileSystem.File.WriteAllText(path, contents);
+}
+```
+
 
 ### Working with Directories
 
