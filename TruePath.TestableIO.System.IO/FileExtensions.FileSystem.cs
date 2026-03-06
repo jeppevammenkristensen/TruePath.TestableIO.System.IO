@@ -241,56 +241,56 @@ public static partial class FileExtensions
     }
 
     /// <inheritdoc cref = "File.Exists(string? )"/>
-    public static bool Exists([NotNullWhen(true)] this AbsolutePath? path, FileSystem? fileSystem = null)
+    public static bool FileExists([NotNullWhen(true)] this AbsolutePath? path, FileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.Exists(path);
     }
 
     /// <inheritdoc cref = "File.GetAttributes(string)"/>
-    public static FileAttributes GetAttributes(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static FileAttributes FileGetAttributes(this AbsolutePath path, FileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.GetAttributes(path);
     }
 
     /// <inheritdoc cref = "File.GetCreationTime(string)"/>
-    public static DateTime GetCreationTime(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static DateTime FileGetCreationTime(this AbsolutePath path, FileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.GetCreationTime(path);
     }
 
     /// <inheritdoc cref = "File.GetCreationTimeUtc(string)"/>
-    public static DateTime GetCreationTimeUtc(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static DateTime FileGetCreationTimeUtc(this AbsolutePath path, FileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.GetCreationTimeUtc(path);
     }
 
     /// <inheritdoc cref = "File.GetLastAccessTime(string)"/>
-    public static DateTime GetLastAccessTime(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static DateTime FileGetLastAccessTime(this AbsolutePath path, FileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.GetLastAccessTime(path);
     }
 
     /// <inheritdoc cref = "File.GetLastAccessTimeUtc(string)"/>
-    public static DateTime GetLastAccessTimeUtc(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static DateTime FileGetLastAccessTimeUtc(this AbsolutePath path, FileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.GetLastAccessTimeUtc(path);
     }
 
     /// <inheritdoc cref = "File.GetLastWriteTime(string)"/>
-    public static DateTime GetLastWriteTime(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static DateTime FileGetLastWriteTime(this AbsolutePath path, FileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.GetLastWriteTime(path);
     }
 
     /// <inheritdoc cref = "File.GetLastWriteTimeUtc(string)"/>
-    public static DateTime GetLastWriteTimeUtc(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static DateTime FileGetLastWriteTimeUtc(this AbsolutePath path, FileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.GetLastWriteTimeUtc(path);
@@ -299,7 +299,7 @@ public static partial class FileExtensions
 #if FEATURE_FILESYSTEM_UNIXFILEMODE
     /// <inheritdoc cref = "File.GetUnixFileMode(string)"/>
     [UnsupportedOSPlatform("windows")]
-    public static UnixFileMode GetUnixFileMode(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static UnixFileMode FileGetUnixFileMode(this AbsolutePath path, FileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.GetUnixFileMode(path);

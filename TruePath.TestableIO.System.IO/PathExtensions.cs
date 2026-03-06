@@ -19,15 +19,14 @@ internal static class AbsolutePathExtensions
 public static class PathExtensions
 {
     /// <inheritdoc cref = "Path.ChangeExtension(string, string)"/>
-     
-    /// <inheritdoc cref = "Path.ChangeExtension(string, string)"/>
     [return: NotNullIfNotNull("path")]
     public static AbsolutePath? ChangeExtension(this IPath source, AbsolutePath? path, string? extension)
     {
         var result = source.ChangeExtension(path?.Value, extension);
         return result.AsAbsolutePath();
     }
-    
+ 
+    /// <inheritdoc cref = "Path.ChangeExtension(string, string)"/>
     public static AbsolutePath? ChangeExtension(this IPath source, AbsolutePath path, string? extension)
     {
         var result = source.ChangeExtension(path.Value, extension);

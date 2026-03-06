@@ -11,7 +11,8 @@
         <PackageTags>TruePath </PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageReleaseNotes>Fixed license</PackageReleaseNotes>        
+        <PackageReleaseNotes>Fix summaries</PackageReleaseNotes>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>

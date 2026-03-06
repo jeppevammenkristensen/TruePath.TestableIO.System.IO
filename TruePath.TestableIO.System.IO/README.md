@@ -82,6 +82,11 @@ var files = fileSystem.Directory.GetFiles(workDir);
 // Returns AbsolutePath[] instead of string[]
 ```
 
+## Bugs or things missing
+
+Feel free to create an issue or submit a pull request.
+
+
 ### Note on use of AI
 
 AI has been used for generating documentation of code samples and for simple parts of the development. 
