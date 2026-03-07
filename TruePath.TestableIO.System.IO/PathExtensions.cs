@@ -16,7 +16,7 @@ internal static class AbsolutePathExtensions
 /// Provides a set of extension methods for working with file and directory paths using the <see cref="System.IO.Abstractions.IPath"/> abstraction.
 /// </summary>
 /// <remarks>This is included for consistency. But a large amount these can be solved by using build in functionality of AbsolutePath</remarks>
-public static class PathExtensions
+public static partial class PathExtensions
 {
     /// <inheritdoc cref = "Path.ChangeExtension(string, string)"/>
     [return: NotNullIfNotNull("path")]
@@ -75,14 +75,25 @@ public static class PathExtensions
     public static bool EndsInDirectorySeparator (this IPath source, AbsolutePath path)
     {
         var result = source.EndsInDirectorySeparator(path.Value);
-        return result;}
+        return result;
+    }
 #endif
 #if FEATURE_FILESYSTEM_NET_7_OR_GREATER
+   
+    /// <inheritdoc cref="Path.Exists(string)" />
+    public static bool Exists (this IPath source, [NotNullWhen(true)] AbsolutePath path)
+    {
+        var result = source.Exists(path.Value);
+        return result;
+    }
+    
+    
     /// <inheritdoc cref="Path.Exists(string)" />
     public static bool Exists (this IPath source, [NotNullWhen(true)] AbsolutePath? path)
     {
         var result = source.Exists(path?.Value);
-        return result;}
+        return result;
+    }
 #endif
 
     /// <inheritdoc cref = "Path.GetDirectoryName(string)"/>
@@ -118,7 +129,7 @@ public static class PathExtensions
     }
 
     /// <inheritdoc cref = "Path.GetFullPath(string)"/>
-    public static AbsolutePath GetFullPath(this IPath source, AbsolutePath path)
+    public static AbsolutePath GetFullPath(this IPath source, LocalPath path)
     {
         var result = source.GetFullPath(path.Value);
         return AbsolutePath.Create(result);
@@ -126,7 +137,7 @@ public static class PathExtensions
 
 #if FEATURE_PATH_RELATIVE
     /// <inheritdoc cref="Path.GetFullPath(string, string)" />
-    public static AbsolutePath GetFullPath (this IPath source, AbsolutePath path, string basePath)
+    public static AbsolutePath GetFullPath (this IPath source, LocalPath path, string basePath)
     {
         var result = source.GetFullPath(path.Value,basePath);
         return AbsolutePath.Create(result);
@@ -139,43 +150,41 @@ public static class PathExtensions
         var result = source.GetPathRoot(path?.Value);
         return result.AsAbsolutePath();
     }
-
-    /// <inheritdoc cref = "Path.GetRandomFileName()"/>
-    public static AbsolutePath GetRandomFileName(this IPath source)
-    {
-        var result = source.GetRandomFileName();
-        return AbsolutePath.Create(result);
-    }
+   
 
 #if FEATURE_PATH_RELATIVE
     /// <inheritdoc cref="Path.GetRelativePath(string, string)" />
-    public static AbsolutePath GetRelativePath (this IPath source, string relativeTo, AbsolutePath path)
+    public static LocalPath GetRelativePath (this IPath source, string relativeTo, AbsolutePath path)
     {
         var result = source.GetRelativePath(relativeTo,path.Value);
-        return AbsolutePath.Create(result);
+        return LocalPath.Create(result);
     }
 #endif
-    
-#if !NETSTANDARD2_0
-#endif
-    /// <inheritdoc cref = "Path.GetTempFileName()"/>
-    
-#if !NETSTANDARD2_0
-    [Obsolete("Insecure temporary file creation methods should not be used. Use `Path.Combine(Path.GetTempPath(), Path.GetRandomFileName())` instead.")]
-    public static AbsolutePath GetTempFileName(this IPath source)
-    {
-        var result = source.GetTempFileName();
-        return AbsolutePath.Create(result);
-    }
 
-#endif
+    /// <summary>
+    /// This uses the approach defined in <see cref="Path.GetTempFileName()"/> to use
+    /// GetTempPath and GetRandomFile 
+    /// </summary>
+    ///<inheritdoc cref = "Path.GetTempFileName()"/>
+    public static AbsolutePath GetTempFileAbsolute (this IPath source)
+    {
+        var result = source.GetTempPathAbsolute() / source.GetRandomFileName();
+        return result;
+    }
+    
     /// <inheritdoc cref = "Path.GetTempPath()"/>
-    public static AbsolutePath GetTempPath(this IPath source)
+    public static AbsolutePath GetTempPathAbsolute(this IPath source)
     {
         var result = source.GetTempPath();
         return AbsolutePath.Create(result);
     }
 
+
+    /// <inheritdoc cref = "Path.HasExtension(string)"/>
+    public static bool HasExtension(this IPath source, AbsolutePath path)
+    {
+        return HasExtension(source, new AbsolutePath?(path));
+    }
 
     /// <inheritdoc cref = "Path.HasExtension(string)"/>
     public static bool HasExtension(this IPath source, [NotNullWhen(true)] AbsolutePath? path)

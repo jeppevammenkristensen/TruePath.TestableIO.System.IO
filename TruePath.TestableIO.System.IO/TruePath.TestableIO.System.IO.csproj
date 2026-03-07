@@ -6,12 +6,13 @@
         <Nullable>enable</Nullable>
         <TargetFrameworks>net10.0;net8.0</TargetFrameworks>
         <Title>TruePath TestableIO.System.IO  extensions </Title>
+        <VersionPrefix>0.13.0</VersionPrefix>
         <Description>Bridges TruePath and TestableIO.System.IO Presents extension methods for the Testable.System.IO mapping to AbsoutePath (TruePath)</Description>
         <RepositoryUrl>https://github.com/jeppevammenkristensen/FileBasedApp.Toolkit</RepositoryUrl>        
         <PackageTags>TruePath</PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageReleaseNotes>Fix unfortunate bug with FileSystem instead of IFileSystem</PackageReleaseNotes>
+        <PackageReleaseNotes>Adjustments to Path usage</PackageReleaseNotes>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
@@ -31,6 +32,9 @@
       </Compile>
       <Compile Update="FileExtensions.FileSystem.cs">
         <DependentUpon>FileExtensions.cs</DependentUpon>
+      </Compile>
+      <Compile Update="PathExtensions.FileSystem.cs">
+        <DependentUpon>PathExtensions.cs</DependentUpon>
       </Compile>
     </ItemGroup>
 
