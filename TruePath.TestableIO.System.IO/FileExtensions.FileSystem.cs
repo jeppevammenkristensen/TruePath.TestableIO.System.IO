@@ -10,7 +10,7 @@ public static partial class FileExtensions
 {
 #if FEATURE_FILE_SPAN
     /// <inheritdoc cref = "File.AppendAllBytes(string, byte[])"/>
-    public static void AppendAllBytes(this AbsolutePath path, byte[] bytes, FileSystem? fileSystem = null)
+    public static void AppendAllBytes(this AbsolutePath path, byte[] bytes, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         fileSystem.File.AppendAllBytes(path, bytes);
@@ -20,7 +20,7 @@ public static partial class FileExtensions
 
 #if FEATURE_FILE_SPAN
     /// <inheritdoc cref = "File.AppendAllBytes(string, ReadOnlySpan{byte})"/>
-    public static void AppendAllBytes(this AbsolutePath path, ReadOnlySpan<byte> bytes, FileSystem? fileSystem = null)
+    public static void AppendAllBytes(this AbsolutePath path, ReadOnlySpan<byte> bytes, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         fileSystem.File.AppendAllBytes(path, bytes);
@@ -31,7 +31,7 @@ public static partial class FileExtensions
 #if FEATURE_FILE_SPAN
     /// <inheritdoc cref = "File.AppendAllBytesAsync(string, byte[], CancellationToken)"/>
     public static Task AppendAllBytesAsync(this AbsolutePath path, byte[] bytes, CancellationToken cancellationToken,
-        FileSystem? fileSystem = null)
+        IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.AppendAllBytesAsync(path, bytes, cancellationToken);
@@ -42,7 +42,7 @@ public static partial class FileExtensions
 #if FEATURE_FILE_SPAN
     /// <inheritdoc cref = "File.AppendAllBytesAsync(string, ReadOnlyMemory{byte}, CancellationToken)"/>
     public static Task AppendAllBytesAsync(this AbsolutePath path, ReadOnlyMemory<byte> bytes,
-        CancellationToken cancellationToken, FileSystem? fileSystem = null)
+        CancellationToken cancellationToken, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.AppendAllBytesAsync(path, bytes, cancellationToken);
@@ -52,7 +52,7 @@ public static partial class FileExtensions
 
     /// <inheritdoc cref = "File.AppendAllLines(string, IEnumerable{string})"/>
     public static void AppendAllLines(this AbsolutePath path, IEnumerable<string> contents,
-        FileSystem? fileSystem = null)
+        IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         fileSystem.File.AppendAllLines(path, contents);
@@ -60,7 +60,7 @@ public static partial class FileExtensions
 
     /// <inheritdoc cref = "File.AppendAllLines(string, IEnumerable{string}, Encoding)"/>
     public static void AppendAllLines(this AbsolutePath path, IEnumerable<string> contents, Encoding encoding,
-        FileSystem? fileSystem = null)
+        IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         fileSystem.File.AppendAllLines(path, contents, encoding);
@@ -69,7 +69,7 @@ public static partial class FileExtensions
 #if FEATURE_FILESYSTEM_ASYNC
     /// <inheritdoc cref = "File.AppendAllLinesAsync(string, IEnumerable{string}, CancellationToken)"/>
     public static Task AppendAllLinesAsync(this AbsolutePath path, IEnumerable<string> contents,
-        CancellationToken cancellationToken, FileSystem? fileSystem = null)
+        CancellationToken cancellationToken, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.AppendAllLinesAsync(path, contents, cancellationToken);
@@ -80,7 +80,7 @@ public static partial class FileExtensions
 #if FEATURE_FILESYSTEM_ASYNC
     /// <inheritdoc cref = "File.AppendAllLinesAsync(string, IEnumerable{string}, Encoding, CancellationToken)"/>
     public static Task AppendAllLinesAsync(this AbsolutePath path, IEnumerable<string> contents, Encoding encoding,
-        CancellationToken cancellationToken, FileSystem? fileSystem = null)
+        CancellationToken cancellationToken, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.AppendAllLinesAsync(path, contents, encoding, cancellationToken);
@@ -89,7 +89,7 @@ public static partial class FileExtensions
 
 
     /// <inheritdoc cref = "File.AppendAllText(string, string? )"/>
-    public static void AppendAllText(this AbsolutePath path, string? contents, FileSystem? fileSystem = null)
+    public static void AppendAllText(this AbsolutePath path, string? contents, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         fileSystem.File.AppendAllText(path, contents);
@@ -97,7 +97,7 @@ public static partial class FileExtensions
 
     /// <inheritdoc cref = "File.AppendAllText(string, string? , Encoding)"/>
     public static void AppendAllText(this AbsolutePath path, string? contents, Encoding encoding,
-        FileSystem? fileSystem = null)
+        IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         fileSystem.File.AppendAllText(path, contents, encoding);
@@ -105,7 +105,7 @@ public static partial class FileExtensions
 
 #if FEATURE_FILE_SPAN
     /// <inheritdoc cref = "File.AppendAllText(string, ReadOnlySpan{char})"/>
-    public static void AppendAllText(this AbsolutePath path, ReadOnlySpan<char> contents, FileSystem? fileSystem = null)
+    public static void AppendAllText(this AbsolutePath path, ReadOnlySpan<char> contents, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         fileSystem.File.AppendAllText(path, contents);
@@ -116,7 +116,7 @@ public static partial class FileExtensions
 #if FEATURE_FILE_SPAN
     /// <inheritdoc cref = "File.AppendAllText(string, ReadOnlySpan{char}, Encoding)"/>
     public static void AppendAllText(this AbsolutePath path, ReadOnlySpan<char> contents, Encoding encoding,
-        FileSystem? fileSystem = null)
+        IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         fileSystem.File.AppendAllText(path, contents, encoding);
@@ -127,7 +127,7 @@ public static partial class FileExtensions
 #if FEATURE_FILESYSTEM_ASYNC
     /// <inheritdoc cref = "File.AppendAllTextAsync(string, string? , CancellationToken)"/>
     public static Task AppendAllTextAsync(this AbsolutePath path, string? contents, CancellationToken cancellationToken,
-        FileSystem? fileSystem = null)
+        IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.AppendAllTextAsync(path, contents, cancellationToken);
@@ -138,7 +138,7 @@ public static partial class FileExtensions
 #if FEATURE_FILESYSTEM_ASYNC
     /// <inheritdoc cref = "File.AppendAllTextAsync(string, string? , Encoding, CancellationToken)"/>
     public static Task AppendAllTextAsync(this AbsolutePath path, string? contents, Encoding encoding,
-        CancellationToken cancellationToken, FileSystem? fileSystem = null)
+        CancellationToken cancellationToken, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.AppendAllTextAsync(path, contents, encoding, cancellationToken);
@@ -149,7 +149,7 @@ public static partial class FileExtensions
 #if FEATURE_FILE_SPAN
     /// <inheritdoc cref = "File.AppendAllTextAsync(string, ReadOnlyMemory{char}, CancellationToken)"/>
     public static Task AppendAllTextAsync(this AbsolutePath path, ReadOnlyMemory<char> contents,
-        CancellationToken cancellationToken, FileSystem? fileSystem = null)
+        CancellationToken cancellationToken, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.AppendAllTextAsync(path, contents, cancellationToken);
@@ -160,7 +160,7 @@ public static partial class FileExtensions
 #if FEATURE_FILE_SPAN
     /// <inheritdoc cref = "File.AppendAllTextAsync(string, ReadOnlyMemory{char}, Encoding, CancellationToken)"/>
     public static Task AppendAllTextAsync(this AbsolutePath path, ReadOnlyMemory<char> contents, Encoding encoding,
-        CancellationToken cancellationToken, FileSystem? fileSystem = null)
+        CancellationToken cancellationToken, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.AppendAllTextAsync(path, contents, encoding, cancellationToken);
@@ -169,29 +169,29 @@ public static partial class FileExtensions
 
 
     /// <inheritdoc cref = "File.AppendText(string)"/>
-    public static StreamWriter AppendText(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static StreamWriter AppendText(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.AppendText(path);
     }
 
     /// <inheritdoc cref = "File.Create(string)"/>
-    public static FileSystemStream Create(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static FileSystemStream FileCreate(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.Create(path);
     }
 
     /// <inheritdoc cref = "File.Create(string, int)"/>
-    public static FileSystemStream Create(this AbsolutePath path, int bufferSize, FileSystem? fileSystem = null)
+    public static FileSystemStream FileCreate(this AbsolutePath path, int bufferSize, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.Create(path, bufferSize);
     }
 
     /// <inheritdoc cref = "File.Create(string, int, FileOptions)"/>
-    public static FileSystemStream Create(this AbsolutePath path, int bufferSize, FileOptions options,
-        FileSystem? fileSystem = null)
+    public static FileSystemStream FileCreate(this AbsolutePath path, int bufferSize, FileOptions options,
+        IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.Create(path, bufferSize, options);
@@ -199,8 +199,8 @@ public static partial class FileExtensions
 
 #if FEATURE_FILESYSTEM_LINK
     /// <inheritdoc cref = "File.CreateSymbolicLink(string, string)"/>
-    public static IFileSystemInfo CreateSymbolicLink(this AbsolutePath path, AbsolutePath pathToTarget,
-        FileSystem? fileSystem = null)
+    public static IFileSystemInfo FileCreateSymbolicLink(this AbsolutePath path, AbsolutePath pathToTarget,
+        IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.CreateSymbolicLink(path, pathToTarget);
@@ -209,7 +209,7 @@ public static partial class FileExtensions
 
 
     /// <inheritdoc cref = "File.CreateText(string)"/>
-    public static StreamWriter CreateText(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static StreamWriter CreateText(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.CreateText(path);
@@ -218,14 +218,14 @@ public static partial class FileExtensions
     /// <inheritdoc cref = "File.Decrypt(string)"/>
     /// <inheritdoc cref = "File.Decrypt(string)"/>
     [SupportedOSPlatform("windows")]
-    public static void Decrypt(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static void Decrypt(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         fileSystem.File.Decrypt(path);
     }
 
     /// <inheritdoc cref = "File.Delete(string)"/>
-    public static void Delete(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static void Delete(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         fileSystem.File.Delete(path);
@@ -234,63 +234,70 @@ public static partial class FileExtensions
     /// <inheritdoc cref = "File.Encrypt(string)"/>
     /// <inheritdoc cref = "File.Encrypt(string)"/>
     [SupportedOSPlatform("windows")]
-    public static void Encrypt(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static void Encrypt(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         fileSystem.File.Encrypt(path);
     }
 
     /// <inheritdoc cref = "File.Exists(string? )"/>
-    public static bool FileExists([NotNullWhen(true)] this AbsolutePath? path, FileSystem? fileSystem = null)
+    public static bool FileExists([NotNullWhen(true)] this AbsolutePath? path, IFileSystem? fileSystem = null)
+    {
+        fileSystem ??= new FileSystem();
+        return fileSystem.File.Exists(path);
+    }
+    
+    /// <inheritdoc cref = "File.Exists(string? )"/>
+    public static bool FileExists(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.Exists(path);
     }
 
     /// <inheritdoc cref = "File.GetAttributes(string)"/>
-    public static FileAttributes FileGetAttributes(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static FileAttributes FileGetAttributes(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.GetAttributes(path);
     }
 
     /// <inheritdoc cref = "File.GetCreationTime(string)"/>
-    public static DateTime FileGetCreationTime(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static DateTime FileGetCreationTime(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.GetCreationTime(path);
     }
 
     /// <inheritdoc cref = "File.GetCreationTimeUtc(string)"/>
-    public static DateTime FileGetCreationTimeUtc(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static DateTime FileGetCreationTimeUtc(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.GetCreationTimeUtc(path);
     }
 
     /// <inheritdoc cref = "File.GetLastAccessTime(string)"/>
-    public static DateTime FileGetLastAccessTime(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static DateTime FileGetLastAccessTime(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.GetLastAccessTime(path);
     }
 
     /// <inheritdoc cref = "File.GetLastAccessTimeUtc(string)"/>
-    public static DateTime FileGetLastAccessTimeUtc(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static DateTime FileGetLastAccessTimeUtc(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.GetLastAccessTimeUtc(path);
     }
 
     /// <inheritdoc cref = "File.GetLastWriteTime(string)"/>
-    public static DateTime FileGetLastWriteTime(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static DateTime FileGetLastWriteTime(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.GetLastWriteTime(path);
     }
 
     /// <inheritdoc cref = "File.GetLastWriteTimeUtc(string)"/>
-    public static DateTime FileGetLastWriteTimeUtc(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static DateTime FileGetLastWriteTimeUtc(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.GetLastWriteTimeUtc(path);
@@ -299,7 +306,7 @@ public static partial class FileExtensions
 #if FEATURE_FILESYSTEM_UNIXFILEMODE
     /// <inheritdoc cref = "File.GetUnixFileMode(string)"/>
     [UnsupportedOSPlatform("windows")]
-    public static UnixFileMode FileGetUnixFileMode(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static UnixFileMode FileGetUnixFileMode(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.GetUnixFileMode(path);
@@ -308,7 +315,7 @@ public static partial class FileExtensions
 
 
     /// <inheritdoc cref = "File.Open(string, FileMode)"/>
-    public static FileSystemStream Open(this AbsolutePath path, FileMode mode, FileSystem? fileSystem = null)
+    public static FileSystemStream Open(this AbsolutePath path, FileMode mode, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.Open(path, mode);
@@ -316,7 +323,7 @@ public static partial class FileExtensions
 
     /// <inheritdoc cref = "File.Open(string, FileMode, FileAccess)"/>
     public static FileSystemStream Open(this AbsolutePath path, FileMode mode, FileAccess access,
-        FileSystem? fileSystem = null)
+        IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.Open(path, mode, access);
@@ -324,7 +331,7 @@ public static partial class FileExtensions
 
     /// <inheritdoc cref = "File.Open(string, FileMode, FileAccess, FileShare)"/>
     public static FileSystemStream Open(this AbsolutePath path, FileMode mode, FileAccess access, FileShare share,
-        FileSystem? fileSystem = null)
+        IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.Open(path, mode, access, share);
@@ -333,7 +340,7 @@ public static partial class FileExtensions
 #if FEATURE_FILESYSTEM_STREAM_OPTIONS
     /// <inheritdoc cref = "File.Open(string, FileStreamOptions)"/>
     public static FileSystemStream Open(this AbsolutePath path, FileStreamOptions options,
-        FileSystem? fileSystem = null)
+        IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.Open(path, options);
@@ -342,28 +349,28 @@ public static partial class FileExtensions
 
 
     /// <inheritdoc cref = "File.OpenRead(string)"/>
-    public static FileSystemStream OpenRead(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static FileSystemStream OpenRead(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.OpenRead(path);
     }
 
     /// <inheritdoc cref = "File.OpenText(string)"/>
-    public static StreamReader OpenText(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static StreamReader OpenText(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.OpenText(path);
     }
 
     /// <inheritdoc cref = "File.OpenWrite(string)"/>
-    public static FileSystemStream OpenWrite(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static FileSystemStream OpenWrite(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.OpenWrite(path);
     }
 
     /// <inheritdoc cref = "File.ReadAllBytes(string)"/>
-    public static byte[] ReadAllBytes(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static byte[] ReadAllBytes(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.ReadAllBytes(path);
@@ -372,7 +379,7 @@ public static partial class FileExtensions
 #if FEATURE_FILESYSTEM_ASYNC
     /// <inheritdoc cref = "File.ReadAllBytesAsync(string, CancellationToken)"/>
     public static Task<byte[]> ReadAllBytesAsync(this AbsolutePath path, CancellationToken cancellationToken,
-        FileSystem? fileSystem = null)
+        IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.ReadAllBytesAsync(path, cancellationToken);
@@ -381,14 +388,14 @@ public static partial class FileExtensions
 
 
     /// <inheritdoc cref = "File.ReadAllLines(string)"/>
-    public static AbsolutePath[] ReadAllLines(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static AbsolutePath[] ReadAllLines(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.ReadAllLines(path);
     }
 
     /// <inheritdoc cref = "File.ReadAllLines(string, Encoding)"/>
-    public static AbsolutePath[] ReadAllLines(this AbsolutePath path, Encoding encoding, FileSystem? fileSystem = null)
+    public static AbsolutePath[] ReadAllLines(this AbsolutePath path, Encoding encoding, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.ReadAllLines(path, encoding);
@@ -397,7 +404,7 @@ public static partial class FileExtensions
 #if FEATURE_FILESYSTEM_ASYNC
     /// <inheritdoc cref = "File.ReadAllLinesAsync(string, CancellationToken)"/>
     public static Task<AbsolutePath[]> ReadAllLinesAsync(this AbsolutePath path, CancellationToken cancellationToken,
-        FileSystem? fileSystem = null)
+        IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.ReadAllLinesAsync(path, cancellationToken);
@@ -408,7 +415,7 @@ public static partial class FileExtensions
 #if FEATURE_FILESYSTEM_ASYNC
     /// <inheritdoc cref = "File.ReadAllLinesAsync(string, Encoding, CancellationToken)"/>
     public static Task<AbsolutePath[]> ReadAllLinesAsync(this AbsolutePath path, Encoding encoding,
-        CancellationToken cancellationToken, FileSystem? fileSystem = null)
+        CancellationToken cancellationToken, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.ReadAllLinesAsync(path, encoding, cancellationToken);
@@ -417,14 +424,14 @@ public static partial class FileExtensions
 
 
     /// <inheritdoc cref = "File.ReadAllText(string)"/>
-    public static AbsolutePath ReadAllText(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static AbsolutePath ReadAllText(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.ReadAllText(path);
     }
 
     /// <inheritdoc cref = "File.ReadAllText(string, Encoding)"/>
-    public static AbsolutePath ReadAllText(this AbsolutePath path, Encoding encoding, FileSystem? fileSystem = null)
+    public static AbsolutePath ReadAllText(this AbsolutePath path, Encoding encoding, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.ReadAllText(path, encoding);
@@ -433,7 +440,7 @@ public static partial class FileExtensions
 #if FEATURE_FILESYSTEM_ASYNC
     /// <inheritdoc cref = "File.ReadAllTextAsync(string, CancellationToken)"/>
     public static Task<AbsolutePath> ReadAllTextAsync(this AbsolutePath path, CancellationToken cancellationToken,
-        FileSystem? fileSystem = null)
+        IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.ReadAllTextAsync(path, cancellationToken);
@@ -444,7 +451,7 @@ public static partial class FileExtensions
 #if FEATURE_FILESYSTEM_ASYNC
     /// <inheritdoc cref = "File.ReadAllTextAsync(string, Encoding, CancellationToken)"/>
     public static Task<AbsolutePath> ReadAllTextAsync(this AbsolutePath path, Encoding encoding,
-        CancellationToken cancellationToken, FileSystem? fileSystem = null)
+        CancellationToken cancellationToken, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.ReadAllTextAsync(path, encoding, cancellationToken);
@@ -453,7 +460,7 @@ public static partial class FileExtensions
 
 
     /// <inheritdoc cref = "File.ReadLines(string)"/>
-    public static IEnumerable<AbsolutePath> ReadLines(this AbsolutePath path, FileSystem? fileSystem = null)
+    public static IEnumerable<AbsolutePath> ReadLines(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.ReadLines(path);
@@ -461,7 +468,7 @@ public static partial class FileExtensions
 
     /// <inheritdoc cref = "File.ReadLines(string, Encoding)"/>
     public static IEnumerable<AbsolutePath> ReadLines(this AbsolutePath path, Encoding encoding,
-        FileSystem? fileSystem = null)
+        IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.ReadLines(path, encoding);
@@ -470,7 +477,7 @@ public static partial class FileExtensions
 #if FEATURE_FILESYSTEM_NET_7_OR_GREATER
     /// <inheritdoc cref = "File.ReadLinesAsync(string, CancellationToken)"/>
     public static async IAsyncEnumerable<AbsolutePath> ReadLinesAsync(this AbsolutePath path,
-        [EnumeratorCancellation] CancellationToken cancellationToken, FileSystem? fileSystem = null)
+        [EnumeratorCancellation] CancellationToken cancellationToken, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         var result =  fileSystem.File.ReadLinesAsync(path, cancellationToken);
@@ -485,7 +492,7 @@ public static partial class FileExtensions
 #if FEATURE_FILESYSTEM_NET_7_OR_GREATER
     /// <inheritdoc cref = "File.ReadLinesAsync(string, Encoding, CancellationToken)"/>
     public static IAsyncEnumerable<AbsolutePath> ReadLinesAsync(this AbsolutePath path, Encoding encoding,
-       CancellationToken cancellationToken, FileSystem? fileSystem = null)
+       CancellationToken cancellationToken, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         return fileSystem.File.ReadLinesAsync(path, encoding, cancellationToken);
@@ -585,7 +592,7 @@ public static partial class FileExtensions
 
 
     /// <inheritdoc cref = "File.WriteAllText(string, string? )"/>
-    public static void WriteAllText(this AbsolutePath path, string? contents, FileSystem? fileSystem = null)
+    public static void WriteAllText(this AbsolutePath path, string? contents, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         fileSystem.File.WriteAllText(path, contents);
@@ -601,7 +608,7 @@ public static partial class FileExtensions
 
 #if FEATURE_FILE_SPAN
     /// <inheritdoc cref = "File.WriteAllText(string, ReadOnlySpan{char})"/>
-    public static void WriteAllText(this AbsolutePath path, ReadOnlySpan<char> contents, FileSystem? fileSystem = null)
+    public static void WriteAllText(this AbsolutePath path, ReadOnlySpan<char> contents, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         fileSystem.File.WriteAllText(path, contents);

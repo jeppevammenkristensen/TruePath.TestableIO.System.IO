@@ -6,10 +6,24 @@ This library provides extension methods for `TestableIO.System.IO.Abstractions` 
 
 ## Features
 
-- **Strongly-typed Paths**: Use `AbsolutePath` for all file system operations.
-- **Testability**: Full support for `IFileSystem` abstractions, allowing easy mocking in unit tests.
-- **Comprehensive API**: Covers `IFile`, `IDirectory`, `IFileInfo`, `IDirectoryInfo`, and `IDriveInfo`.
-- **Modern .NET Support**: Targets `net8.0` and `net10.0`.
+Instead of using strings, you can use `AbsolutePath` with your `IFileSystem`:
+
+For relevant interfaces of the `IFileSystem` abstraction it will provide extension methods and if possible also provide a convinience method directly on AbsolutePath that allows for a direct way to call it with an optional `IFileSystem` (if null the default IFileSystem will be used `new FileSystem()` ).
+
+Note that in some cases. For instance the Create method that is available for both `IFile` and `IDirectory` the direct method call will be `FileCreate` and `DirectoryCreate`
+
+### Example
+
+For instance SetLastWriteTime on `IFile` is available as 
+
+```csharp
+FileSetLastWriteTime(this AbsolutePath path, DateTime lastWriteTime, IFileSystem? fileSystem = null)
+``` 
+and 
+
+```csharp
+SetLastWriteTime(this IFile file, AbsolutePath path, DateTime lastWriteTime)
+```
 
 ## Installation
 
@@ -23,31 +37,15 @@ dotnet add package TruePath.TestableIO.System.IO
 
 ### Basic Example
 
-Instead of using strings, you can use `AbsolutePath` with your `IFileSystem`:
-
 ```csharp
 using System.IO.Abstractions;
 using TruePath;
 
-IFileSystem fileSystem = new FileSystem();
+var fileSystem = new FileSystem();
 var myPath = new AbsolutePath("/var/log/app.log");
 
-// Extension method on IFile that takes AbsolutePath
-fileSystem.File.WriteAllText(myPath, "Hello, TruePath!");
-
-// Where possible there will also be direct extensions methods against an AbsolutePath
-// So the above could also be achieved with:
-myPath.WriteAllText("Hello");
-
-// This method supports adding the fileSystem so this would also be possible
-myPath.WriteAllText("Hello", fileSystem);
-
-// Note that the fileSystem will default to null. In case of nulls a new instance of FileSystem will be created by the method
-
-if (fileSystem.File.Exists(myPath))
-{
-    var content = fileSystem.File.ReadAllText(myPath);
-}
+fileSystem.File.WriteAllText(myPath, "Hello, world!");
+myPath.WriteAllText("Hello world", fileSystem);
 ```
 
 #### Extension example
@@ -64,22 +62,11 @@ public static void WriteAllText(this IFile file, AbsolutePath path, ReadOnlySpan
 ```
 
 ```csharp
-public static void WriteAllText(this AbsolutePath path, ReadOnlySpan<char> contents, FileSystem? fileSystem = null)
+public static void WriteAllText(this AbsolutePath path, ReadOnlySpan<char> contents, IFileSystem? fileSystem = null)
 {
     fileSystem ??= new FileSystem();
     fileSystem.File.WriteAllText(path, contents);
 }
-```
-
-
-### Working with Directories
-
-```csharp
-var workDir = new AbsolutePath("/tmp/my-work-dir");
-
-fileSystem.Directory.CreateDirectory(workDir);
-var files = fileSystem.Directory.GetFiles(workDir); 
-// Returns AbsolutePath[] instead of string[]
 ```
 
 ## Bugs or things missing

@@ -1,17 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <IsPackable>false</IsPackable>
         <LangVersion>latest</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <TargetFrameworks>net10.0;net8.0</TargetFrameworks>
         <Title>TruePath TestableIO.System.IO  extensions </Title>
         <Description>Bridges TruePath and TestableIO.System.IO Presents extension methods for the Testable.System.IO mapping to AbsoutePath (TruePath)</Description>
-        <RepositoryUrl>https://github.com/jeppevammenkristensen/FileBasedApp.Toolkit</RepositoryUrl>
-        <PackageTags>TruePath </PackageTags>
+        <RepositoryUrl>https://github.com/jeppevammenkristensen/FileBasedApp.Toolkit</RepositoryUrl>        
+        <PackageTags>TruePath</PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageReleaseNotes>Fix summaries</PackageReleaseNotes>
+        <PackageReleaseNotes>Fix unfortunate bug with FileSystem instead of IFileSystem</PackageReleaseNotes>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
