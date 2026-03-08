@@ -225,7 +225,7 @@ public static partial class FileExtensions
     }
 
     /// <inheritdoc cref = "File.Delete(string)"/>
-    public static void Delete(this AbsolutePath path, IFileSystem? fileSystem = null)
+    public static void FileDelete(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         fileSystem.File.Delete(path);

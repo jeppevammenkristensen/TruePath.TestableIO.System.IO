@@ -33,14 +33,14 @@ public static partial class DirectoryExtensions
 #endif
 
     /// <inheritdoc cref = "Directory.Delete(string)"/>
-    public static void Delete(this AbsolutePath path, IFileSystem? fileSystem = null)
+    public static void DirectoryDelete(this AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         fileSystem.Directory.Delete(path);
     }
 
     /// <inheritdoc cref = "Directory.Delete(string, bool)"/>
-    public static void Delete(this AbsolutePath path, bool recursive, IFileSystem? fileSystem = null)
+    public static void DirectoryDelete(this AbsolutePath path, bool recursive, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();
         fileSystem.Directory.Delete(path, recursive);
