@@ -1,16 +1,10 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using TruePath;
+using TruePath.System.IO.Abstractions;
+
 // ReSharper disable CheckNamespace
 
 namespace System.IO.Abstractions;
-
-internal static class AbsolutePathExtensions
-{
-    public static AbsolutePath? AsAbsolutePath(this string? path)
-    {
-        return path == null ? null : AbsolutePath.Create(path);
-    }
-}
 
 /// <summary>
 /// Provides a set of extension methods for working with file and directory paths using the <see cref="System.IO.Abstractions.IPath"/> abstraction.
