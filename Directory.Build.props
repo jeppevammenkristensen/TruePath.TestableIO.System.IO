@@ -2,6 +2,6 @@
   <PropertyGroup>
     <VersionPrefix>0.13.0</VersionPrefix>
     <VersionSuffix Condition="'$(Configuration)' == 'Debug'">dev</VersionSuffix>
-    <VersionSuffix Condition="'$(Configuration)' != 'Debug'">preview-01</VersionSuffix>
+    <VersionSuffix Condition="'$(Configuration)' != 'Debug'">preview-02</VersionSuffix>
   </PropertyGroup>
 </Project>
