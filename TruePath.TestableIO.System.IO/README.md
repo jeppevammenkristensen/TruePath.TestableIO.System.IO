@@ -10,6 +10,10 @@ Instead of using strings, you can use `AbsolutePath` with your `IFileSystem`:
 
 For relevant interfaces of the `IFileSystem` abstraction it will provide extension methods and if possible also provide a convinience method directly on AbsolutePath that allows for a direct way to call it with an optional `IFileSystem` (if null the default IFileSystem will be used `new FileSystem()` ).
 
+For instance `IFile.WriteAllText` will be available as `FileIO.WriteAllText(...)`
+For these there will also be a direct method available on `AbsolutePath` that allows for a direct way to call it. Note that this will live in the `TruePath.TestableIO.System.IO` namespace and not `System.IO.Abstractions`
+
+
 Note that in some cases. For instance the Create method that is available for both `IFile` and `IDirectory` the direct method call will be `FileCreate` and `DirectoryCreate`
 
 ### Example
@@ -24,6 +28,12 @@ and
 ```csharp
 SetLastWriteTime(this IFile file, AbsolutePath path, DateTime lastWriteTime)
 ```
+
+It will also be available with ad call to
+```csharp
+FileIO.SetLastWriteTime(AbsolutePath.Create(...), .., ...)
+```
+
 
 ## Installation
 

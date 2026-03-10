@@ -9,17 +9,20 @@ namespace System.IO.Abstractions;
 /// </summary>
 public static partial class DirectoryInfoFactoryExtensions
 {
-    /// <summary>
-    ///  Initializes a new instance of a wrapper for <see cref="DirectoryInfo" /> which implements
-    /// <see cref="IDirectoryInfo" />.
-    /// </summary>
-    /// <param name="directoryInfoFactory"></param>
-    /// <param name="path">A string specifying the path on which to create the <see cref="IDirectoryInfo" />.</param>
+    
+    /// <inheritdoc cref="IDirectoryInfoFactory.New(string)"/>
     public static IDirectoryInfo New(this IDirectoryInfoFactory directoryInfoFactory,
         AbsolutePath path)
     {
         var result = directoryInfoFactory.New(path.Value);
         return result;
+    }
+
+    /// <inheritdoc cref="IDirectoryInfoFactory.New(string)"/>
+    public static IDirectoryInfo NewDirectoryInfo(this AbsolutePath path, IFileSystem? fileSystem = null)
+    {
+        fileSystem ??= new FileSystem();
+        return fileSystem.DirectoryInfo.New(path.Value);
     }
 }
 

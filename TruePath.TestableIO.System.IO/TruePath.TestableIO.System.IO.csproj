@@ -5,14 +5,13 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <TargetFrameworks>net10.0;net8.0</TargetFrameworks>
-        <Title>TruePath TestableIO.System.IO  extensions </Title>
-        <VersionPrefix>0.13.0</VersionPrefix>
+        <Title>TruePath TestableIO.System.IO  extensions </Title>        
         <Description>Bridges TruePath and TestableIO.System.IO Presents extension methods for the Testable.System.IO mapping to AbsoutePath (TruePath)</Description>
         <RepositoryUrl>https://github.com/jeppevammenkristensen/FileBasedApp.Toolkit</RepositoryUrl>        
         <PackageTags>TruePath</PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageReleaseNotes>Adjustments to Path usage.</PackageReleaseNotes>
+        <PackageReleaseNotes>Fix incorrect return values as AbsolutePaths where should be strings. Fixed more incorrect parameter types that should be IFileSystem instead of FileSystem. Add new direct IO extensions for File, Directory and DirectoryInfo</PackageReleaseNotes>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 

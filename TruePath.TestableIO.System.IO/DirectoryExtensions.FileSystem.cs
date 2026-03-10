@@ -15,7 +15,7 @@ public static partial class DirectoryExtensions
 #if FEATURE_FILESYSTEM_UNIXFILEMODE
     /// <inheritdoc cref = "Directory.CreateDirectory(string, UnixFileMode)"/>
     public static IDirectoryInfo CreateDirectory(this AbsolutePath path, UnixFileMode unixCreateMode,
-        FileSystem? fileSystem
+        IFileSystem? fileSystem
             = null)
     {
         fileSystem ??= new FileSystem();
@@ -24,7 +24,7 @@ public static partial class DirectoryExtensions
 #endif
 #if FEATURE_FILESYSTEM_LINK
     /// <inheritdoc cref = "Directory.CreateSymbolicLink(string, string)"/>
-    public static IFileSystemInfo DirectoryCreateSymbolicLink(this AbsolutePath path, AbsolutePath pathToTarget, FileSystem?
+    public static IFileSystemInfo DirectoryCreateSymbolicLink(this AbsolutePath path, AbsolutePath pathToTarget, IFileSystem?
         fileSystem = null)
     {
         fileSystem ??= new FileSystem();

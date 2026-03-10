@@ -163,7 +163,7 @@ public static partial class DirectoryExtensions
 
 
     /// <inheritdoc cref="Directory.Exists(string)" />
-    public static bool Exists(this IDirectory directory, [NotNullWhen(true)] AbsolutePath path)
+    public static bool Exists(this IDirectory directory, AbsolutePath path)
     {
         var result = directory.Exists(path.Value);
         return result;

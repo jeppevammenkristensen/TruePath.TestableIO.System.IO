@@ -386,121 +386,105 @@ public static partial class FileExtensions
 
 
     /// <inheritdoc cref="File.ReadAllLines(string)" />
-    public static AbsolutePath[] ReadAllLines(this IFile file, AbsolutePath path)
+    public static string[] ReadAllLines(this IFile file, AbsolutePath path)
     {
-        var result = file.ReadAllLines(path.Value);
-        return [..result.Select(AbsolutePath.Create)];
+        return file.ReadAllLines(path.Value);
     }
 
 
     /// <inheritdoc cref="File.ReadAllLines(string, Encoding)" />
-    public static AbsolutePath[] ReadAllLines(this IFile file, AbsolutePath path, Encoding encoding)
+    public static string[] ReadAllLines(this IFile file, AbsolutePath path, Encoding encoding)
     {
-        var result = file.ReadAllLines(path.Value, encoding);
-        return [..result.Select(AbsolutePath.Create)];
+        return  file.ReadAllLines(path.Value, encoding);
     }
 
 
 #if FEATURE_FILESYSTEM_ASYNC
     /// <inheritdoc cref="File.ReadAllLinesAsync(string, CancellationToken)" />
-    public static async Task<AbsolutePath[]> ReadAllLinesAsync(this IFile file, AbsolutePath path,
+    public static async Task<string[]> ReadAllLinesAsync(this IFile file, AbsolutePath path,
         CancellationToken cancellationToken)
     {
-        var result = await file.ReadAllLinesAsync(path.Value, cancellationToken);
-        return [..result.Select(AbsolutePath.Create)];
+        return await file.ReadAllLinesAsync(path.Value, cancellationToken);
     }
 #endif
 
 
 #if FEATURE_FILESYSTEM_ASYNC
     /// <inheritdoc cref="File.ReadAllLinesAsync(string, Encoding, CancellationToken)" />
-    public static async Task<AbsolutePath[]> ReadAllLinesAsync(this IFile file, AbsolutePath path, Encoding encoding,
+    public static async Task<string[]> ReadAllLinesAsync(this IFile file, AbsolutePath path, Encoding encoding,
         CancellationToken cancellationToken)
     {
-        var result = await file.ReadAllLinesAsync(path.Value, encoding, cancellationToken);
-        return [..result.Select(AbsolutePath.Create)];
+        return await file.ReadAllLinesAsync(path.Value, encoding, cancellationToken);
     }
 #endif
 
 
     /// <inheritdoc cref="File.ReadAllText(string)" />
-    public static AbsolutePath ReadAllText(this IFile file, AbsolutePath path)
+    public static string ReadAllText(this IFile file, AbsolutePath path)
     {
-        var result = file.ReadAllText(path.Value);
-        return AbsolutePath.Create(result);
+        return  file.ReadAllText(path.Value);
     }
 
 
     /// <inheritdoc cref="File.ReadAllText(string, Encoding)" />
-    public static AbsolutePath ReadAllText(this IFile file, AbsolutePath path, Encoding encoding)
+    public static string ReadAllText(this IFile file, AbsolutePath path, Encoding encoding)
     {
-        var result = file.ReadAllText(path.Value, encoding);
-        return AbsolutePath.Create(result);
+        return file.ReadAllText(path.Value, encoding);
     }
 
 
 #if FEATURE_FILESYSTEM_ASYNC
     /// <inheritdoc cref="File.ReadAllTextAsync(string, CancellationToken)" />
-    public static async Task<AbsolutePath> ReadAllTextAsync(this IFile file, AbsolutePath path,
+    public static async Task<string> ReadAllTextAsync(this IFile file, AbsolutePath path,
         CancellationToken cancellationToken)
     {
         var result = await file.ReadAllTextAsync(path.Value, cancellationToken);
-        return AbsolutePath.Create(result);
+        return result;
     }
 #endif
 
 
 #if FEATURE_FILESYSTEM_ASYNC
     /// <inheritdoc cref="File.ReadAllTextAsync(string, Encoding, CancellationToken)" />
-    public static async Task<AbsolutePath> ReadAllTextAsync(this IFile file, AbsolutePath path, Encoding encoding,
+    public static async Task<string> ReadAllTextAsync(this IFile file, AbsolutePath path, Encoding encoding,
         CancellationToken cancellationToken)
     {
-        var result = await file.ReadAllTextAsync(path.Value, encoding, cancellationToken);
-        return AbsolutePath.Create(result);
+        return await file.ReadAllTextAsync(path.Value, encoding, cancellationToken);
     }
 #endif
 
 
     /// <inheritdoc cref="File.ReadLines(string)" />
-    public static IEnumerable<AbsolutePath> ReadLines(this IFile file, AbsolutePath path)
+    public static IEnumerable<string> ReadLines(this IFile file, AbsolutePath path)
     {
-        var result = file.ReadLines(path.Value);
-        return [..result.Select(AbsolutePath.Create)];
+        return file.ReadLines(path.Value);
     }
 
 
     /// <inheritdoc cref="File.ReadLines(string, Encoding)" />
-    public static IEnumerable<AbsolutePath> ReadLines(this IFile file, AbsolutePath path, Encoding encoding)
+    public static IEnumerable<string> ReadLines(this IFile file, AbsolutePath path, Encoding encoding)
     {
-        var result = file.ReadLines(path.Value, encoding);
-        return [..result.Select(AbsolutePath.Create)];
+        return file.ReadLines(path.Value, encoding);
     }
 
 
 #if FEATURE_FILESYSTEM_NET_7_OR_GREATER
     /// <inheritdoc cref="File.ReadLinesAsync(string, CancellationToken)" />
-    public static async IAsyncEnumerable<AbsolutePath> ReadLinesAsync(this IFile file, AbsolutePath path,
-        [EnumeratorCancellation] CancellationToken cancellationToken)
+    public static IAsyncEnumerable<string> ReadLinesAsync(this IFile file, AbsolutePath path,
+         CancellationToken cancellationToken)
     {
-        var result = file.ReadLinesAsync(path.Value, cancellationToken);
-        await foreach (var se in result)
-        {
-            yield return AbsolutePath.Create(se);
-        }
+        return file.ReadLinesAsync(path.Value, cancellationToken);
     }
 #endif
 
 
 #if FEATURE_FILESYSTEM_NET_7_OR_GREATER
     /// <inheritdoc cref="File.ReadLinesAsync(string, Encoding, CancellationToken)" />
-    public static async IAsyncEnumerable<AbsolutePath> ReadLinesAsync(this IFile file, AbsolutePath path,
-        Encoding encoding, [EnumeratorCancellation] CancellationToken cancellationToken)
+    public static IAsyncEnumerable<string> ReadLinesAsync(this IFile file, AbsolutePath path,
+        Encoding encoding,CancellationToken cancellationToken)
     {
-        var result = file.ReadLinesAsync(path.Value, encoding, cancellationToken);
-        await foreach (var se in result)
-        {
-            yield return AbsolutePath.Create(se);
-        }
+        return file.ReadLinesAsync(path.Value, encoding, cancellationToken);
+        
     }
 #endif
 
