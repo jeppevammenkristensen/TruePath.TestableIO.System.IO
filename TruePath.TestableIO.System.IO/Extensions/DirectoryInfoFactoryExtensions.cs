@@ -17,13 +17,6 @@ public static partial class DirectoryInfoFactoryExtensions
         var result = directoryInfoFactory.New(path.Value);
         return result;
     }
-
-    /// <inheritdoc cref="IDirectoryInfoFactory.New(string)"/>
-    public static IDirectoryInfo NewDirectoryInfo(this AbsolutePath path, IFileSystem? fileSystem = null)
-    {
-        fileSystem ??= new FileSystem();
-        return fileSystem.DirectoryInfo.New(path.Value);
-    }
 }
 
 

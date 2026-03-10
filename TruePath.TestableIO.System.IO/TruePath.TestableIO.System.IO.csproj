@@ -11,7 +11,7 @@
         <PackageTags>TruePath</PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageReleaseNotes>Fix incorrect return values as AbsolutePaths where should be strings. Fixed more incorrect parameter types that should be IFileSystem instead of FileSystem. Add new direct IO extensions for File, Directory and DirectoryInfo</PackageReleaseNotes>
+        <PackageReleaseNotes>Fix incorrect return values as AbsolutePaths where should be strings. Fixed more incorrect parameter types that should be IFileSystem instead of FileSystem. Add new direct IO extensions. Did major cleanup analysis of the PathExtensions</PackageReleaseNotes>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
@@ -26,13 +26,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="DirectoryExtensions.FileSystem.cs">
-        <DependentUpon>DirectoryExtensions.cs</DependentUpon>
+      <Compile Update="Extensions\FileStreamFactoryExtensions.FileSystem.cs">
+        <DependentUpon>FileStreamFactoryExtensions.cs</DependentUpon>
       </Compile>
-      <Compile Update="FileExtensions.FileSystem.cs">
-        <DependentUpon>FileExtensions.cs</DependentUpon>
+      <Compile Update="Extensions\DirectoryInfoFactoryExtensions.FileSystem.cs">
+        <DependentUpon>DirectoryInfoFactoryExtensions.cs</DependentUpon>
       </Compile>
-      <Compile Update="PathExtensions.FileSystem.cs">
+      <Compile Update="Extensions\FileSystemWatcherFactoryExtensions.FileSystem.cs">
+        <DependentUpon>FileSystemWatcherFactoryExtensions.cs</DependentUpon>
+      </Compile>
+      <Compile Update="Extensions\PathExtensions.FileSystem.cs">
         <DependentUpon>PathExtensions.cs</DependentUpon>
       </Compile>
     </ItemGroup>

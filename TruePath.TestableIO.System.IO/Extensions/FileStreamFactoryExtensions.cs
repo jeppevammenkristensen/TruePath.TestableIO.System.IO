@@ -1,4 +1,6 @@
 ﻿using TruePath;
+using TruePath.TestableIO.System.IO;
+
 // ReSharper disable CheckNamespace
 namespace System.IO.Abstractions;
 
@@ -7,9 +9,9 @@ namespace System.IO.Abstractions;
 /// using the <see cref="IFileStreamFactory"/> interface with the help of
 /// <see cref="AbsolutePath"/> objects.
 /// </summary>
-public static class FileStreamFactoryExtensions
+public static partial class FileStreamFactoryExtensions
 {
-    /// <inheritdoc cref="FileStream(string, FileMode)" />
+    /// <inheritdoc cref="IFileStreamFactory.New(string, FileMode)" />
     public static FileSystemStream New(this IFileStreamFactory fileStreamFactory,
         AbsolutePath path, FileMode mode)
     {
@@ -18,7 +20,7 @@ public static class FileStreamFactoryExtensions
     }
 
 
-    /// <inheritdoc cref="FileStream(string, FileMode, FileAccess)" />
+    /// <inheritdoc cref="IFileStreamFactory.New(string, FileMode, FileAccess)" />
     public static FileSystemStream New(this IFileStreamFactory fileStreamFactory,
         AbsolutePath path, FileMode mode, FileAccess access)
     {
@@ -27,7 +29,7 @@ public static class FileStreamFactoryExtensions
     }
 
 
-    /// <inheritdoc cref="FileStream(string, FileMode, FileAccess, FileShare)" />
+    /// <inheritdoc cref="IFileStreamFactory.New(string, FileMode, FileAccess, FileShare)" />
     public static FileSystemStream New(this IFileStreamFactory fileStreamFactory,
         AbsolutePath path, FileMode mode, FileAccess access, FileShare share)
     {
@@ -36,7 +38,7 @@ public static class FileStreamFactoryExtensions
     }
 
 
-    /// <inheritdoc cref="FileStream(string, FileMode, FileAccess, FileShare, int)" />
+    /// <inheritdoc cref="IFileStreamFactory.New(string, FileMode, FileAccess, FileShare, int)" />
     public static FileSystemStream New(this IFileStreamFactory fileStreamFactory,
         AbsolutePath path, FileMode mode, FileAccess access, FileShare share,
         int bufferSize)
@@ -46,7 +48,7 @@ public static class FileStreamFactoryExtensions
     }
 
 
-    /// <inheritdoc cref="FileStream(string, FileMode, FileAccess, FileShare, int, bool)" />
+    /// <inheritdoc cref="IFileStreamFactory.New(string, FileMode, FileAccess, FileShare, int, bool)" />
     public static FileSystemStream New(this IFileStreamFactory fileStreamFactory,
         AbsolutePath path, FileMode mode, FileAccess access, FileShare share,
         int bufferSize, bool useAsync)
@@ -56,7 +58,7 @@ public static class FileStreamFactoryExtensions
     }
 
 
-    /// <inheritdoc cref="FileStream(string, FileMode, FileAccess, FileShare, int, FileOptions)" />
+    /// <inheritdoc cref="IFileStreamFactory.New(string, FileMode, FileAccess, FileShare, int, FileOptions)" />
     public static FileSystemStream New(this IFileStreamFactory fileStreamFactory,
         AbsolutePath path, FileMode mode, FileAccess access, FileShare share,
         int bufferSize, FileOptions options)
@@ -67,7 +69,7 @@ public static class FileStreamFactoryExtensions
 
 
 #if FEATURE_FILESYSTEM_STREAM_OPTIONS
-    /// <inheritdoc cref="FileStream(string, FileStreamOptions)" />
+    /// <inheritdoc cref="IFileStreamFactory.New(string, FileStreamOptions)" />
     public static FileSystemStream New(this IFileStreamFactory fileStreamFactory,
         AbsolutePath path, FileStreamOptions options)
     {

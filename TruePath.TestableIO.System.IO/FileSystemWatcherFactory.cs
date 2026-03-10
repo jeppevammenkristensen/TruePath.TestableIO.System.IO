@@ -1,14 +1,11 @@
-﻿using TruePath;
-// ReSharper disable CheckNamespace
-// ReSharper disable InvalidXmlDocComment
+using System.IO.Abstractions;
 
-namespace System.IO.Abstractions;
+namespace TruePath.TestableIO.System.IO;
 
 /// <summary>
-/// Provides extension methods for creating instances of <see cref="IFileSystemWatcher" /> through an
-/// <see cref="IFileSystemWatcherFactory" />.
+/// Exposes a factory method for creating <see cref="IFileSystemWatcherFactory"/> instances. If not provided the IFileSystem will resolve to new FileSystem()
 /// </summary>
-public static class FileSystemWatcherFactoryExtensions
+internal static class FileSystemWatcherIOFactory
 {
     /// <summary>
     ///     Initializes a new instance of a wrapper for <see cref="FileSystemWatcher" /> which implements
@@ -16,9 +13,10 @@ public static class FileSystemWatcherFactoryExtensions
     /// </summary>
     /// <param name="fileSystemWatcherFactory"></param>
     /// <param name="path">The directory to monitor, in standard or Universal Naming Convention (UNC) notation.</param>
-    public static IFileSystemWatcher New(this IFileSystemWatcherFactory fileSystemWatcherFactory, AbsolutePath path)
+    public static IFileSystemWatcher New(AbsolutePath path, IFileSystem? fileSystem = null)
     {
-        var result = fileSystemWatcherFactory.New(path.Value);
+        fileSystem ??= new FileSystem();
+        var result = fileSystem.FileSystemWatcher.New(path.Value);
         return result;
     }
 
@@ -27,16 +25,17 @@ public static class FileSystemWatcherFactoryExtensions
     ///     Initializes a new instance of a wrapper for <see cref="FileSystemWatcher" /> which implements
     ///     <see cref="IFileSystemWatcher" />.
     /// </summary>
-    /// <param name="fileSystemWatcherFactory"></param>
     /// <param name="path">The directory to monitor, in standard or Universal Naming Convention (UNC) notation.</param>
     /// <param name="filter">
     ///     The type of files to watch.
     ///     For example, <c>"*.txt"</c> watches for changes to all text files.
     /// </param>
-    public static IFileSystemWatcher New(this IFileSystemWatcherFactory fileSystemWatcherFactory, AbsolutePath path,
-        string filter)
+    /// <param name="fileSystem"></param>
+    public static IFileSystemWatcher New(AbsolutePath path,
+        string filter, IFileSystem? fileSystem = null)
     {
-        var result = fileSystemWatcherFactory.New(path.Value, filter);
+        fileSystem ??= new FileSystem();
+        var result = fileSystem.FileSystemWatcher.New(path.Value, filter);
         return result;
     }
 }

@@ -28,28 +28,28 @@ public static partial class PathExtensions
     }
 
     /// <inheritdoc cref = "Path.Combine(string, string)"/>
-    public static AbsolutePath Combine(this IPath source, string path1, string path2)
+    public static AbsolutePath CombineToPath(this IPath source, string path1, string path2)
     {
         var result = source.Combine(path1, path2);
         return AbsolutePath.Create(result);
     }
 
     /// <inheritdoc cref = "Path.Combine(string, string, string)"/>
-    public static AbsolutePath Combine(this IPath source, string path1, string path2, string path3)
+    public static AbsolutePath CombineToPath(this IPath source, string path1, string path2, string path3)
     {
         var result = source.Combine(path1, path2, path3);
         return AbsolutePath.Create(result);
     }
 
     /// <inheritdoc cref = "Path.Combine(string, string, string, string)"/>
-    public static AbsolutePath Combine(this IPath source,string path1, string path2, string path3, string path4)
+    public static AbsolutePath CombineToPath(this IPath source,string path1, string path2, string path3, string path4)
     {
         var result = source.Combine(path1, path2, path3, path4);
         return AbsolutePath.Create(result);
     }
 
     /// <inheritdoc cref = "Path.Combine(string[])"/>
-    public static AbsolutePath Combine(this IPath source, string[] paths)
+    public static AbsolutePath CombineToPath(this IPath source, string[] paths)
     {
         var result = source.Combine(paths);
         return AbsolutePath.Create(result);
@@ -57,7 +57,7 @@ public static partial class PathExtensions
 
 #if FEATURE_PATH_SPAN
     /// <inheritdoc cref="Path.Combine(ReadOnlySpan{string})" />
-    public static AbsolutePath Combine (this IPath source, ReadOnlySpan<string> paths)
+    public static AbsolutePath CombineToPath (this IPath source, ReadOnlySpan<string> paths)
     {
         var result = source.Combine(paths);
         return AbsolutePath.Create(result);
@@ -83,7 +83,7 @@ public static partial class PathExtensions
     
     
     /// <inheritdoc cref="Path.Exists(string)" />
-    public static bool Exists (this IPath source, [NotNullWhen(true)] AbsolutePath? path)
+    public static bool Exists(this IPath source, [NotNullWhen(true)] AbsolutePath? path)
     {
         var result = source.Exists(path?.Value);
         return result;
@@ -91,6 +91,14 @@ public static partial class PathExtensions
 #endif
 
     /// <inheritdoc cref = "Path.GetDirectoryName(string)"/>
+    /// <remarks>This can also be achieved on path with path / ".." </remarks>
+    public static AbsolutePath GetDirectoryName(this IPath source, AbsolutePath path)
+    {
+        return source.GetDirectoryName(path.Value).AsRequired();
+    }
+    
+    /// <inheritdoc cref = "Path.GetDirectoryName(string)"/>
+    /// <remarks>This can also be achieved on path with path / ".." </remarks>
     public static AbsolutePath? GetDirectoryName(this IPath source, AbsolutePath? path)
     {
         var result = source.GetDirectoryName(path?.Value);
@@ -100,44 +108,51 @@ public static partial class PathExtensions
 
     /// <inheritdoc cref = "Path.GetExtension(string)"/>
     [return: NotNullIfNotNull("path")]
-    public static AbsolutePath? GetExtension(this IPath source, AbsolutePath? path)
+    [Obsolete("Consider using the extension method on AbsolutePath instead")]
+    public static string? GetExtension(this IPath source, AbsolutePath? path)
     {
-        var result = source.GetExtension(path?.Value);
-        return result.AsAbsolutePath();
+        return source.GetExtension(path?.Value);
     }
 
     /// <inheritdoc cref = "Path.GetFileName(string)"/>
     [return: NotNullIfNotNull("path")]
-    public static AbsolutePath? GetFileName(this IPath source, AbsolutePath? path)
+    [Obsolete("Consider using the extension method on AbsolutePath instead")]
+    public static string? GetFileName(this IPath source, AbsolutePath? path)
     {
-        var result = source.GetFileName(path?.Value);
-        return result.AsAbsolutePath();
+        return source.GetFileName(path?.Value);
     }
 
     /// <inheritdoc cref = "Path.GetFileNameWithoutExtension(string)"/>
     [return: NotNullIfNotNull("path")]
-    public static AbsolutePath? GetFileNameWithoutExtension(this IPath source, AbsolutePath? path)
+    [Obsolete("Consider using the extension method on AbsolutePath instead")]
+    public static string? GetFileNameWithoutExtension(this IPath source, AbsolutePath? path)
     {
-        var result = source.GetFileNameWithoutExtension(path?.Value);
-        return result.AsAbsolutePath();
+        return source.GetFileNameWithoutExtension(path?.Value);
     }
 
     /// <inheritdoc cref = "Path.GetFullPath(string)"/>
-    public static AbsolutePath GetFullPath(this IPath source, LocalPath path)
+    public static AbsolutePath PathGetFullPath(this IPath source, string path)
     {
-        var result = source.GetFullPath(path.Value);
+        var result = source.GetFullPath(path);
         return AbsolutePath.Create(result);
     }
 
 #if FEATURE_PATH_RELATIVE
     /// <inheritdoc cref="Path.GetFullPath(string, string)" />
-    public static AbsolutePath GetFullPath (this IPath source, LocalPath path, string basePath)
+    public static AbsolutePath PathGetFullPath (this IPath source, string path, string basePath)
     {
-        var result = source.GetFullPath(path.Value,basePath);
+        var result = source.GetFullPath(path,basePath);
         return AbsolutePath.Create(result);
     }
 #endif
 
+    /// <inheritdoc cref = "Path.GetPathRoot(string? )"/>
+    public static AbsolutePath GetPathRoot(this IPath source, AbsolutePath path)
+    {
+        var result = source.GetPathRoot(path.Value);
+        return result.AsRequired();
+    }
+    
     /// <inheritdoc cref = "Path.GetPathRoot(string? )"/>
     public static AbsolutePath? GetPathRoot(this IPath source, AbsolutePath? path)
     {
@@ -186,66 +201,40 @@ public static partial class PathExtensions
         var result = source.HasExtension(path?.Value);
         return result;
     }
-
-#if FEATURE_SPAN
-    /// <inheritdoc cref="Path.IsPathFullyQualified(ReadOnlySpan{char})" />
-    public static bool IsPathFullyQualified (this IPath source, AbsolutePath path)
-    {
-        var result = source.IsPathFullyQualified(path.Value);
-        return result;}
-#endif
-
-#if FEATURE_SPAN
-    /// <inheritdoc cref="Path.IsPathRooted(ReadOnlySpan{char})" />
-    public static bool IsPathRooted (this IPath source, AbsolutePath path)
-    {
-        var result = source.IsPathRooted(path.Value);
-        return result;}
-#endif
     
 #if FEATURE_PATH_JOIN
     /// <inheritdoc cref="Path.Join(ReadOnlySpan{char}, ReadOnlySpan{char})" />
-    public static AbsolutePath Join (this IPath source, AbsolutePath path1, AbsolutePath path2)
+    public static AbsolutePath PathJoin (this IPath source, ReadOnlySpan<char> path1, ReadOnlySpan<char> path2)
     {
-        var result = source.Join(path1.Value,path2.Value);
+        var result = source.Join(path1,path2);
         return AbsolutePath.Create(result);
     }
 #endif
 #if FEATURE_PATH_JOIN
     /// <inheritdoc cref="Path.Join(ReadOnlySpan{char}, ReadOnlySpan{char}, ReadOnlySpan{char})" />
-    public static AbsolutePath Join (this IPath source, AbsolutePath path1, AbsolutePath path2, AbsolutePath path3)
+    public static AbsolutePath PathJoin (this IPath source, ReadOnlySpan<char> path1, ReadOnlySpan<char> path2, ReadOnlySpan<char> path3)
     {
-        var result = source.Join(path1.Value,path2.Value,path3.Value);
+        var result = source.Join(path1,path2,path3);
         return AbsolutePath.Create(result);
     }
 #endif
 #if FEATURE_PATH_ADVANCED
     /// <inheritdoc cref="Path.Join(ReadOnlySpan{char}, ReadOnlySpan{char}, ReadOnlySpan{char}, ReadOnlySpan{char})" />
-    public static AbsolutePath Join (this IPath source, AbsolutePath path1, AbsolutePath path2, AbsolutePath path3, AbsolutePath path4)
+    public static AbsolutePath PathJoin (this IPath source, ReadOnlySpan<char> path1, ReadOnlySpan<char> path2, ReadOnlySpan<char> path3, ReadOnlySpan<char> path4)
     {
-        var result = source.Join(path1.Value,path2.Value,path3.Value,path4.Value);
+        var result = source.Join(path1,path2,path3,path4);
         return AbsolutePath.Create(result);
     }
 #endif
 
 #if FEATURE_PATH_ADVANCED
     /// <inheritdoc cref="Path.Join(string[])" />
-    public static AbsolutePath Join (this IPath source, params IEnumerable<AbsolutePath> paths)
+    public static AbsolutePath PathJoin (this IPath source, params string[] paths)
     {
-        var result = source.Join(paths.Select(x => x.Value).ToArray());
-        return AbsolutePath.Create(result);
+        return AbsolutePath.Create(source.Join(paths));
     }
 #endif
 
-
-#if FEATURE_PATH_ADVANCED
-    /// <inheritdoc cref="Path.TrimEndingDirectorySeparator(string)" />
-    public static AbsolutePath TrimEndingDirectorySeparator (this IPath source, AbsolutePath path)
-    {
-        var result = source.TrimEndingDirectorySeparator(path.Value);
-        return AbsolutePath.Create(result);
-    }
-#endif
 
 
 }
