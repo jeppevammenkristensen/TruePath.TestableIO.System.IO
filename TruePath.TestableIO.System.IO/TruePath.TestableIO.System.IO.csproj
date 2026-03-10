@@ -22,7 +22,7 @@
     <ItemGroup>
       <PackageReference Include="TestableIO.System.IO.Abstractions.Wrappers" Version="22.1.0" />
       <PackageReference Include="Testably.Abstractions.FileSystem.Interface" Version="10.0.0" />
-      <PackageReference Include="TruePath" Version="1.11.0" />
+      <PackageReference Include="TruePath" Version="1.11.0" />        
     </ItemGroup>
 
     <ItemGroup>
