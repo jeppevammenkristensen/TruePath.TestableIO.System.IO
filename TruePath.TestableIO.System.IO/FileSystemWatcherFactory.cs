@@ -11,8 +11,8 @@ internal static class FileSystemWatcherIOFactory
     ///     Initializes a new instance of a wrapper for <see cref="FileSystemWatcher" /> which implements
     ///     <see cref="IFileSystemWatcher" />.
     /// </summary>
-    /// <param name="fileSystemWatcherFactory"></param>
     /// <param name="path">The directory to monitor, in standard or Universal Naming Convention (UNC) notation.</param>
+    /// <param name="fileSystem"></param>
     public static IFileSystemWatcher New(AbsolutePath path, IFileSystem? fileSystem = null)
     {
         fileSystem ??= new FileSystem();

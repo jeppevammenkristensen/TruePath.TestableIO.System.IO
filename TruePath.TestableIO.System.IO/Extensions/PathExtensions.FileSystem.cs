@@ -35,5 +35,5 @@ public static partial class PathExtensions
     public static bool HasExtension(AbsolutePath path, IFileSystem? fileSystem = null) => PathIO.HasExtension(path, fileSystem);
 
     /// <inheritdoc cref = "Path.HasExtension(string)"/>
-    public static bool HasExtension([NotNullWhen(true)] AbsolutePath? path, IFileSystem? fileSystem) => PathIO.HasExtension(path, fileSystem);
+    public static bool HasExtension([NotNullWhen(true)] AbsolutePath? path, IFileSystem? fileSystem = null) => PathIO.HasExtension(path, fileSystem);
 }

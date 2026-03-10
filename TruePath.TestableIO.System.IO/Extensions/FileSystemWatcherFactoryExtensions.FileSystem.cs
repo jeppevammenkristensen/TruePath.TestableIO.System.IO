@@ -10,14 +10,12 @@ public static partial class FileSystemWatcherFactoryExtensions
     ///     Initializes a new instance of a wrapper for <see cref="FileSystemWatcher" /> which implements
     ///     <see cref="IFileSystemWatcher" />.
     /// </summary>
-    /// <param name="fileSystemWatcherFactory"></param>
     /// <param name="path">The directory to monitor, in standard or Universal Naming Convention (UNC) notation.</param>
     public static IFileSystemWatcher New(this AbsolutePath path) => FileSystemWatcherIOFactory.New(path);
     /// <summary>
     ///     Initializes a new instance of a wrapper for <see cref="FileSystemWatcher" /> which implements
     ///     <see cref="IFileSystemWatcher" />.
     /// </summary>
-    /// <param name="fileSystemWatcherFactory"></param>
     /// <param name="path">The directory to monitor, in standard or Universal Naming Convention (UNC) notation.</param>
     /// <param name="filter">
     ///     The type of files to watch.
