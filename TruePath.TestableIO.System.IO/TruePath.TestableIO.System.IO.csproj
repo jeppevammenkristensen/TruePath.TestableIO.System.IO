@@ -39,6 +39,9 @@
       <Compile Update="Extensions\PathExtensions.FileSystem.cs">
         <DependentUpon>PathExtensions.cs</DependentUpon>
       </Compile>
+      <Compile Update="DirectoryIO.cs">
+        <DependentUpon>AbsolutePathExtensions.cs</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <!-- This is related to importing the Directory.Build.props from the root of the repo, which defines some properties based on the TargetFramework. We need to redefine them here to ensure they are available for conditional compilation in this project. -->
