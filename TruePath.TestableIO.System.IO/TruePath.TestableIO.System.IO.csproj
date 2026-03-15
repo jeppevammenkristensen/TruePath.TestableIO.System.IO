@@ -11,7 +11,9 @@
         <PackageTags>TruePath</PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageReleaseNotes>Fix incorrect return values as AbsolutePaths where should be strings. Fixed more incorrect parameter types that should be IFileSystem instead of FileSystem. Add new direct IO extensions. Did major cleanup analysis of the PathExtensions</PackageReleaseNotes>
+        <PackageReleaseNotes>
+- Updated TruePath dependency to 1.12.0
+        </PackageReleaseNotes>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
