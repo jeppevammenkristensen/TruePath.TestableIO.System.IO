@@ -13,6 +13,7 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageReleaseNotes>
 - Updated TruePath dependency to 1.12.0
+- No longer syncing versions with FileBasedApp.Toolkit            
         </PackageReleaseNotes>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
