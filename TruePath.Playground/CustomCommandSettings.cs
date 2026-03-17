@@ -1,4 +1,5 @@
 ﻿using FileBasedApp.Toolkit;
+using FileBasedApp.Toolkit.CommandCli;
 using Spectre.Console;
 using Spectre.Console.Cli;
 using TruePath;
@@ -7,7 +8,6 @@ public class CustomCommandSettings : ExtendedCommandSettings
 {
     [CommandArgument(0, "<directory-path>")]
     public string? Directory { get; set; }
-    
     [CommandOption("--filePath")]
     public required string File { get; set; }
 
