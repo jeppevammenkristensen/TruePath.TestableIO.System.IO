@@ -1,5 +1,4 @@
 ﻿using TruePath;
-using TruePath.TestableIO.System.IO;
 
 // ReSharper disable CheckNamespace
 namespace System.IO.Abstractions;

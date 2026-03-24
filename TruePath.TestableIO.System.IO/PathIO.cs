@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.IO.Abstractions;
-using TruePath;
 
 namespace TruePath.TestableIO.System.IO;
 

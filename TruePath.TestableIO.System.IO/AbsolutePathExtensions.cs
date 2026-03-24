@@ -1,6 +1,4 @@
-﻿using TruePath;
-
-namespace TruePath.System.IO.Abstractions;
+﻿namespace TruePath.System.IO.Abstractions;
 
 internal static class InternalPathExtensions
 {
