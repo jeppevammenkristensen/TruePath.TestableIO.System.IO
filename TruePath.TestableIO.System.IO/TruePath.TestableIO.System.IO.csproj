@@ -5,7 +5,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <TargetFrameworks>net10.0;net8.0</TargetFrameworks>
-        <Title>TruePath TestableIO.System.IO  extensions </Title>        
+        <Title>TruePath TestableIO.System.IO extensions </Title>        
         <Description>Bridges TruePath and TestableIO.System.IO Presents extension methods for the Testable.System.IO mapping to AbsoutePath (TruePath)</Description>
         <RepositoryUrl>https://github.com/jeppevammenkristensen/FileBasedApp.Toolkit</RepositoryUrl>        
         <PackageTags>TruePath</PackageTags>
