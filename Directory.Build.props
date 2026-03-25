@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <VersionPrefix>0.16.0</VersionPrefix>
-    <VersionSuffix>alpha-01</VersionSuffix>
+    <VersionSuffix>alpha-02</VersionSuffix>
     <PackageReleaseNotes>Updated TruePath reference</PackageReleaseNotes>
   </PropertyGroup>
 </Project>
