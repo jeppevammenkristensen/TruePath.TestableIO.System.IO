@@ -206,6 +206,21 @@ public static partial class FileExtensions
     }
 #endif
 
+    /// <inheritdoc cref="File.Replace(string, string, string)" />
+    public static void FileReplace(this AbsolutePath sourceFileName, AbsolutePath destinationFileName,
+        AbsolutePath? destinationBackupFileName, IFileSystem? fileSystem = null)
+    {
+        fileSystem ??= new FileSystem();
+        fileSystem.File.Replace(sourceFileName, destinationFileName, destinationBackupFileName);
+    }
+
+    /// <inheritdoc cref="File.Replace(string, string, string, bool)" />
+    public static void FileReplace(this AbsolutePath sourceFileName, AbsolutePath destinationFileName,
+        AbsolutePath? destinationBackupFileName, bool ignoreMetadataErrors, IFileSystem? fileSystem = null)
+    {
+        fileSystem ??= new FileSystem();
+        fileSystem.File.Replace(sourceFileName, destinationFileName, destinationBackupFileName, ignoreMetadataErrors);
+    }
 
     /// <inheritdoc cref = "File.CreateText(string)"/>
     public static StreamWriter CreateText(this AbsolutePath path, IFileSystem? fileSystem = null)
@@ -725,6 +740,38 @@ public static void FileSetUnixFileMode(this AbsolutePath path, UnixFileMode mode
 }
 #endif
 
+    ///<inheritdoc cref="File.Copy(string,string)"/>
+    public static void FileCopy(this AbsolutePath sourceFileName, AbsolutePath destFileName, IFileSystem? fileSystem = null)
+    {
+        fileSystem ??= new FileSystem();
+        fileSystem.File.Copy(sourceFileName.Value, destFileName.Value);
+    }
+    
+    ///<inheritdoc cref="File.Copy(string,string,bool)"/>
+    public static void FileCopy(this AbsolutePath sourceFileName, AbsolutePath destFileName, bool overwrite, IFileSystem? fileSystem = null)
+    {
+        fileSystem ??= new FileSystem();
+        fileSystem.File.Copy(sourceFileName.Value, destFileName.Value, overwrite: overwrite);
+    }
+    
+    
+    
+    /// <inheritdoc cref="File.Move(string, string)" />
+    public static void FileMove(this AbsolutePath sourceFileName, AbsolutePath destFileName, IFileSystem? fileSystem = null)
+    {
+        fileSystem ??= new FileSystem();
+        fileSystem.File.Move(sourceFileName.Value, destFileName.Value);
+    }
+    
+#if FEATURE_FILE_MOVETO_OVERWRITE
+    /// <inheritdoc cref="File.Move(string, string, bool)" />
+    public static void FileMove(this AbsolutePath sourceFileName, AbsolutePath destFileName, bool overwrite, IFileSystem? fileSystem = null)
+    {
+        fileSystem ??= new FileSystem();
+        fileSystem.File.Move(sourceFileName.Value, destFileName.Value, overwrite: overwrite);
+    }
+#endif
+    
 
 
 

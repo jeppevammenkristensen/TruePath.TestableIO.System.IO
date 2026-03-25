@@ -205,6 +205,32 @@ public static partial class FileExtensions
         return result;
     }
 
+    ///<inheritdoc cref="File.Copy(string,string)"/>
+    public static void Copy(this IFile file, AbsolutePath sourceFileName, AbsolutePath destFileName)
+    {
+        file.Copy(sourceFileName.Value, destFileName.Value);
+    }
+    
+    ///<inheritdoc cref="File.Copy(string,string,bool)"/>
+    public static void Copy(this IFile file, AbsolutePath sourceFileName, AbsolutePath destFileName, bool overwrite)
+    {
+        file.Copy(sourceFileName.Value, destFileName.Value, overwrite: overwrite);
+    }
+
+    /// <inheritdoc cref="File.Move(string, string)" />
+    public static void Move(this IFile file, AbsolutePath sourceFileName, AbsolutePath destFileName)
+    {
+        file.Move(sourceFileName.Value, destFileName.Value);
+    }
+    
+#if FEATURE_FILE_MOVETO_OVERWRITE
+    /// <inheritdoc cref="File.Move(string, string, bool)" />
+    public static void Move(this IFile file, AbsolutePath sourceFileName, AbsolutePath destFileName, bool overwrite)
+    {
+        file.Move(sourceFileName.Value, destFileName.Value, overwrite: overwrite);
+    }
+#endif
+
 
     /// <inheritdoc cref="File.Decrypt(string)" />
     /// <inheritdoc cref="File.Decrypt(string)" />
@@ -293,6 +319,21 @@ public static partial class FileExtensions
         var result = file.GetLastWriteTimeUtc(path.Value);
         return result;
     }
+    
+    /// <inheritdoc cref="File.Replace(string, string, string)" />
+    public static void Replace(this IFile file, AbsolutePath sourceFileName, AbsolutePath destinationFileName,
+    AbsolutePath? destinationBackupFileName)
+    {
+        file.Replace(sourceFileName.Value, destinationFileName.Value, destinationBackupFileName?.Value);
+    }
+
+    /// <inheritdoc cref="File.Replace(string, string, string, bool)" />
+    public static void Replace(this IFile file, AbsolutePath sourceFileName, AbsolutePath destinationFileName,
+        AbsolutePath? destinationBackupFileName, bool ignoreMetadataErrors)
+    {
+        file.Replace(sourceFileName.Value, destinationFileName.Value, destinationBackupFileName?.Value, ignoreMetadataErrors);
+    }
+
 
 
 #if FEATURE_FILESYSTEM_UNIXFILEMODE

@@ -599,4 +599,46 @@ public static DateTime GetLastWriteTimeUtc(AbsolutePath path, IFileSystem? fileS
         path.FileSetUnixFileMode(mode, fileSystem);
     }
 #endif
+
+    /// <inheritdoc cref="File.Replace(string, string, string)" />
+    public static void Replace(AbsolutePath sourceFileName, AbsolutePath destinationFileName,
+        AbsolutePath? destinationBackupFileName, IFileSystem? fileSystem)
+    {
+        sourceFileName.FileReplace(destinationFileName, destinationBackupFileName, fileSystem);
+    }
+    
+    /// <inheritdoc cref="File.Replace(string, string, string, bool)" />
+    public static void Replace(AbsolutePath sourceFileName, AbsolutePath destinationFileName,
+        AbsolutePath? destinationBackupFileName, bool ignoreMetadataErrors, IFileSystem? fileSystem = null)
+    {
+        fileSystem ??= new FileSystem();
+        sourceFileName.FileReplace(destinationFileName, destinationBackupFileName, ignoreMetadataErrors, fileSystem);
+    }
+    
+    ///<inheritdoc cref="File.Copy(string,string)"/>
+    public static void Copy(AbsolutePath sourceFileName, AbsolutePath destFileName, IFileSystem? fileSystem = null)
+    {
+        sourceFileName.FileCopy(destFileName, fileSystem);
+    }
+    
+    ///<inheritdoc cref="File.Copy(string,string,bool)"/>
+    public static void Copy(AbsolutePath sourceFileName, AbsolutePath destFileName, bool overwrite, IFileSystem? fileSystem = null)
+    {
+        sourceFileName.FileCopy(destFileName, overwrite: overwrite, fileSystem);
+    }
+    
+    /// <inheritdoc cref="File.Move(string, string)" />
+    public static void Move(AbsolutePath sourceFileName, AbsolutePath destFileName, IFileSystem? fileSystem = null)
+    {
+        sourceFileName.FileMove(destFileName, fileSystem);
+    }
+    
+#if FEATURE_FILE_MOVETO_OVERWRITE
+    /// <inheritdoc cref="File.Move(string, string, bool)" />
+    public static void Move(AbsolutePath sourceFileName, AbsolutePath destFileName, bool overwrite, IFileSystem? fileSystem = null)
+    {
+        sourceFileName.FileMove(destFileName, overwrite: overwrite, fileSystem);
+    }
+#endif
+
 }
