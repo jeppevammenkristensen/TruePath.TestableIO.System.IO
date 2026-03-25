@@ -11,7 +11,13 @@
         <PackageTags>TruePath</PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageReleaseNotes>         
+        <PackageReleaseNotes>
+- Added FileMove, FileCopy, and FileReplace extension methods on AbsolutePath for file operations via IFileSystem
+- Added Move, Copy extension methods on IFile for AbsolutePath-based file operations
+- Added DirectoryMove extension method on AbsolutePath for directory move operations via IFileSystem
+- Added Move extension method on IDirectory for AbsolutePath-based directory move
+- Added MoveTo extension method on IDirectoryInfo for AbsolutePath-based directory move
+- Added CopyTo, MoveTo, and Replace extension methods on IFileInfo for AbsolutePath overloads
         </PackageReleaseNotes>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
