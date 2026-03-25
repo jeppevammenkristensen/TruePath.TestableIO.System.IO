@@ -26,4 +26,11 @@ public static partial class DirectoryInfoExtensions
     {
         return AbsolutePath.Create(directoryInfo.FullName);
     }
+
+
+    /// <inheritdoc cref="DirectoryInfo.MoveTo(string)" />
+    public static void MoveTo(this IDirectoryInfo directoryInfo, AbsolutePath destDirName)
+    {
+        directoryInfo.MoveTo(destDirName.Value);
+    }
 }

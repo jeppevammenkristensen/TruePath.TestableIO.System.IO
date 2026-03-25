@@ -354,4 +354,12 @@ public static partial class DirectoryExtensions
         fileSystem ??= new FileSystem();
         fileSystem.Directory.SetLastWriteTimeUtc(path, lastWriteTimeUtc);
     }
+
+    /// <inheritdoc cref="Directory.Move(string, string)" />
+    public static void DirectoryMove(this AbsolutePath sourceDirName, AbsolutePath destDirName,
+        IFileSystem? fileSystem = null)
+    {
+        fileSystem ??= new FileSystem();
+        fileSystem.Directory.Move(sourceDirName, destDirName);
+    }
 }
