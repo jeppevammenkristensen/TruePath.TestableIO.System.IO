@@ -1,0 +1,51 @@
+name: Publish NuGet package
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Where to publish
+        required: true
+        type: choice
+        default: staging
+        options:
+          - staging
+          - production
+
+jobs:
+  build:
+    uses: ./.github/workflows/run-tests.yml
+    with:
+      display-name: Pre-publish build
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    env:
+      NUGET_SOURCE: ${{ inputs.environment == 'production' && 'https://api.nuget.org/v3/index.json' || 'https://nuget.pkg.github.com/jeppevammenkristensen/index.json' }}
+      NUGET_API_KEY: ${{ inputs.environment == 'production' && secrets.NUGET_API_KEY || secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+      - name: Pack
+        run: >-
+          dotnet pack TruePath.TestableIO.System.IO/TruePath.TestableIO.System.IO.csproj
+          --configuration Release
+          --output artifacts
+          -p:IncludeSymbols=true
+          -p:SymbolPackageFormat=snupkg
+      - name: Publish
+        shell: pwsh
+        run: |
+          Get-ChildItem artifacts -Filter *.nupkg | ForEach-Object {
+            dotnet nuget push $_.FullName --source $env:NUGET_SOURCE --api-key $env:NUGET_API_KEY --skip-duplicate
+            if ($LASTEXITCODE -ne 0) {
+              exit $LASTEXITCODE
+            }
+          }

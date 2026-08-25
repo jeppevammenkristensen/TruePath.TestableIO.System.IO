@@ -1,0 +1,80 @@
+name: Auto publish NuGet package on version bump
+
+on:
+  push:
+    branches-ignore: [main]
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  build:
+    uses: ./.github/workflows/run-tests.yml
+    with:
+      display-name: Pre-publish build
+
+  check-and-publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - id: version
+        name: Check if version was bumped
+        shell: pwsh
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          function Write-Result([bool] $Bumped, [string] $Warning = '') {
+            "bumped=$($Bumped.ToString().ToLowerInvariant())" >> $env:GITHUB_OUTPUT
+            if ($Warning) {
+              Write-Output "::warning::$Warning"
+            }
+          }
+
+          function Read-Version([string] $Content) {
+            [xml] $props = $Content
+            $prefix = [string] $props.Project.PropertyGroup.VersionPrefix
+            $suffix = [string] $props.Project.PropertyGroup.VersionSuffix
+            if ([string]::IsNullOrWhiteSpace($prefix)) {
+              throw 'VersionPrefix was not found'
+            }
+
+            $versionText = if ([string]::IsNullOrWhiteSpace($suffix)) { $prefix } else { "$prefix-$suffix" }
+            return @{
+              Version = [System.Management.Automation.SemanticVersion]::Parse($versionText)
+              HasSuffix = -not [string]::IsNullOrWhiteSpace($suffix)
+            }
+          }
+
+          $current = Read-Version (Get-Content Directory.Build.props -Raw)
+          if (-not $current.HasSuffix) {
+            Write-Result $false 'VersionSuffix is empty; skipping automatic staging publish'
+            exit 0
+          }
+
+          if ([string]::IsNullOrWhiteSpace($env:BEFORE_SHA) -or $env:BEFORE_SHA -match '^0+$') {
+            Write-Result $false 'No previous commit is available; skipping automatic staging publish'
+            exit 0
+          }
+
+          $previousContent = git show "$($env:BEFORE_SHA):Directory.Build.props" 2>$null
+          if ($LASTEXITCODE -ne 0) {
+            Write-Result $false 'Could not read the previous version; skipping automatic staging publish'
+            exit 0
+          }
+
+          $previous = Read-Version ($previousContent -join "`n")
+          if ($current.Version -le $previous.Version) {
+            Write-Result $false "Version was not increased ($($previous.Version) -> $($current.Version))"
+            exit 0
+          }
+
+          Write-Result $true
+      - name: Trigger publish workflow
+        if: steps.version.outputs.bumped == 'true'
+        run: gh workflow run publish.yml --ref ${{ github.ref_name }} -f environment=staging
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

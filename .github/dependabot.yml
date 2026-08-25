@@ -1,0 +1,18 @@
+version: 2
+registries:
+  nuget-public:
+    type: nuget-feed
+    url: https://api.nuget.org/v3/index.json
+updates:
+  - package-ecosystem: nuget
+    registries: "*"
+    directory: "/TruePath.TestableIO.System.IO"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 10
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday

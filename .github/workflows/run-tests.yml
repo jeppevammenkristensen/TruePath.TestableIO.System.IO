@@ -1,0 +1,27 @@
+name: Build
+
+on:
+  workflow_call:
+    inputs:
+      display-name:
+        description: The job name shown in the Actions UI
+        required: false
+        type: string
+        default: Build
+
+jobs:
+  build:
+    name: ${{ inputs.display-name }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+      - name: Restore
+        run: dotnet restore TruePath.TestableIO.System.IO/TruePath.TestableIO.System.IO.csproj
+      - name: Build
+        run: dotnet build TruePath.TestableIO.System.IO/TruePath.TestableIO.System.IO.csproj --configuration Release --no-restore
