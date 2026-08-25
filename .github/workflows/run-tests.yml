@@ -22,6 +22,6 @@ jobs:
         with:
           dotnet-version: 10.0.x
       - name: Restore
-        run: dotnet restore TruePath.TestableIO.System.IO/TruePath.TestableIO.System.IO.csproj
+        run: dotnet restore Source/TruePath.TestableIO.System.IO/TruePath.TestableIO.System.IO.csproj
       - name: Build
-        run: dotnet build TruePath.TestableIO.System.IO/TruePath.TestableIO.System.IO.csproj --configuration Release --no-restore
+        run: dotnet build Source/TruePath.TestableIO.System.IO/TruePath.TestableIO.System.IO.csproj --configuration Release --no-restore

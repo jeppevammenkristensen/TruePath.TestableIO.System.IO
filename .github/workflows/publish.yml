@@ -35,7 +35,7 @@ jobs:
           dotnet-version: 10.0.x
       - name: Pack
         run: >-
-          dotnet pack TruePath.TestableIO.System.IO/TruePath.TestableIO.System.IO.csproj
+          dotnet pack Source/TruePath.TestableIO.System.IO/TruePath.TestableIO.System.IO.csproj
           --configuration Release
           --output artifacts
           -p:IncludeSymbols=true
