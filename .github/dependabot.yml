@@ -6,7 +6,7 @@ registries:
 updates:
   - package-ecosystem: nuget
     registries: "*"
-    directory: "/TruePath.TestableIO.System.IO"
+    directory: "/Source"
     schedule:
       interval: weekly
       day: monday
