@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/Source/">
+    <Project Path="Source/GetFileSystemSourceAndParse/GetFileSystemSourceAndParse.csproj" />
+    <Project Path="Source/TruePath.TestableIO.System.IO/TruePath.TestableIO.System.IO.csproj" />
+  </Folder>
+</Solution>
