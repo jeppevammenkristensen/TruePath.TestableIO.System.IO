@@ -6,9 +6,14 @@ namespace TruePath.TestableIO.System.IO;
 using SystemIOPath = global::System.IO.Abstractions.IPath;
 
 /// <summary>
-/// 
+/// Provides strongly typed path operations through an optional file-system abstraction.
 /// </summary>
-/// <remarks>The Join methods of Path have been removed as TruePath provides better ways to achieve this</remarks>
+/// <remarks>
+/// Combine and Join retain System.IO semantics and require a fully qualified result.
+/// They do not resolve relative results or use TruePath's division operator rules.
+/// Use GetFullPath with an explicit base path or an injected file system to resolve relative paths.
+/// ChangeExtension retains System.IO semantics rather than TruePath's stricter WithExtension rules.
+/// </remarks>
 public static class PathIO
 {
     /// <inheritdoc cref = "Path.ChangeExtension(string, string)"/>

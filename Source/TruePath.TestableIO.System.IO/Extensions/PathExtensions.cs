@@ -9,7 +9,13 @@ namespace System.IO.Abstractions;
 /// <summary>
 /// Provides a set of extension methods for working with file and directory paths using the <see cref="System.IO.Abstractions.IPath"/> abstraction.
 /// </summary>
-/// <remarks>This is included for consistency. But a large amount these can be solved by using build in functionality of AbsolutePath</remarks>
+/// <remarks>
+/// CombineToPath and PathJoin preserve the supplied IPath's Combine and Join semantics, not
+/// TruePath's division operator semantics. Their results must be fully qualified; relative
+/// results are rejected rather than resolved against the process current directory.
+/// Use PathGetFullPath to resolve paths through the supplied file-system abstraction.
+/// ChangeExtension preserves IPath semantics, including changes rejected by TruePath's WithExtension.
+/// </remarks>
 public static partial class PathExtensions
 {
     /// <inheritdoc cref = "Path.ChangeExtension(string, string)"/>

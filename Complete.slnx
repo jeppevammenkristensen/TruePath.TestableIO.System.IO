@@ -3,4 +3,7 @@
     <Project Path="Source/GetFileSystemSourceAndParse/GetFileSystemSourceAndParse.csproj" />
     <Project Path="Source/TruePath.TestableIO.System.IO/TruePath.TestableIO.System.IO.csproj" />
   </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/TruePath.TestableIO.System.IO.Tests/TruePath.TestableIO.System.IO.Tests.csproj" />
+  </Folder>
 </Solution>
