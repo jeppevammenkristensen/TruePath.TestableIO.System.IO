@@ -81,6 +81,58 @@ FileIO.WriteAllText(AbsolutePath path, string? contents, IFileSystem? fileSystem
 The exact available operations depend on the target framework and the corresponding
 `System.IO` APIs.
 
+## TruePath 2.0 compatibility
+
+This package requires TruePath 2.0.0 or later. Public wrapper signatures are unchanged,
+but path normalization and validation follow TruePath 2.0.
+
+- **Combine and Join do not resolve paths.** `IPath.CombineToPath`, `IPath.PathJoin`,
+  `PathIO.Combine`, and `PathIO.Join` retain the injected `IPath`'s System.IO semantics.
+  Their result must be fully qualified, otherwise `ArgumentException` is thrown.
+  On Windows, `\x`, `C:x`, and `C:` are not fully qualified.
+- **TruePath's `/` operator is different.** On Windows, combining `C:\base` and `\x`
+  through `IPath.Combine` yields `\x`, so `CombineToPath` rejects it. TruePath's
+  `AbsolutePath / LocalPath` instead yields `C:\x`. The bridge deliberately does not
+  substitute `/` for the injected abstraction's Combine or Join operations.
+- **Resolve explicitly through the abstraction.** Use `PathIO.GetFullPath(input, fileSystem)`
+  to use the injected filesystem's current directory, or the overload with an explicit
+  base path for deterministic resolution. Do not catch validation failures and silently
+  fall back to the real process current directory.
+- **The current-directory `LocalPath` is `"."`.** `GetRelativePath` for identical paths
+  returns a `LocalPath` whose `Value` is `"."`, not an empty string. Mocks expecting a
+  `LocalPath.Value` argument may need updating, including `CreateSubdirectory` callers.
+- **ChangeExtension keeps System.IO behavior.** It delegates to `IPath.ChangeExtension`,
+  not TruePath's stricter `WithExtension`. Removing the extension of a dotfile can still
+  return its parent directory, and changing an extension on a root can produce a file
+  under that root; `WithExtension` rejects those operations.
+- **Enumeration remains injectable.** Use `DirectoryIO.GetFiles(path, pattern, fileSystem)`
+  or the abstraction overloads when testing. TruePath.SystemIo's new
+  `GetFiles(LocalPathPattern)` overload accesses the real filesystem instead.
+
+For example, resolve a user-supplied path against a known base directory:
+
+```csharp
+var resolved = PathIO.GetFullPath(input, baseDirectory.Value, fileSystem);
+var content = resolved.ReadAllText(fileSystem);
+```
+
+TruePath's fixes to root normalization also apply to returned paths: `C:\base\..`
+normalizes to `C:\` on Windows and `/base/..` to `/` on Unix. Changes to `ReadKind`,
+`Canonicalize`, and prefix comparisons affect direct TruePath calls, but the bridge
+does not call those APIs internally.
+
+## Regression tests
+
+From the repository root, run:
+
+```shell
+dotnet test Tests/TruePath.TestableIO.System.IO.Tests/TruePath.TestableIO.System.IO.Tests.csproj --configuration Release
+```
+
+The tests target .NET 8 and .NET 10 and use `MockFileSystem`, not real filesystem I/O.
+Run on both Windows and Unix to cover platform-specific path behavior; Windows-only
+cases return without executing their assertions on other platforms.
+
 ## Preview packages
 
 Preview versions may be published to GitHub Packages before release to NuGet.org. Add the
@@ -101,14 +153,14 @@ for setup instructions.
 ## Building locally
 
 ```shell
-dotnet restore TruePath.TestableIO.System.IO/TruePath.TestableIO.System.IO.csproj
-dotnet build TruePath.TestableIO.System.IO/TruePath.TestableIO.System.IO.csproj --configuration Release
+dotnet restore Source/TruePath.TestableIO.System.IO/TruePath.TestableIO.System.IO.csproj
+dotnet build Source/TruePath.TestableIO.System.IO/TruePath.TestableIO.System.IO.csproj --configuration Release
 ```
 
 Create a NuGet package with:
 
 ```shell
-dotnet pack TruePath.TestableIO.System.IO/TruePath.TestableIO.System.IO.csproj --configuration Release
+dotnet pack Source/TruePath.TestableIO.System.IO/TruePath.TestableIO.System.IO.csproj --configuration Release
 ```
 
 ## Contributing

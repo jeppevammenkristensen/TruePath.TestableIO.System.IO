@@ -1,8 +1,31 @@
 ﻿# TruePath.TestableIO.System.IO
 
-Bridges [TruePath](https://github.com/shimat/TruePath) and [TestableIO.System.IO.Abstractions](https://github.com/TestableIO/System.IO.Abstractions).
+Bridges [TruePath](https://github.com/ForNeVeR/TruePath) and [TestableIO.System.IO.Abstractions](https://github.com/TestableIO/System.IO.Abstractions).
 
 This library provides extension methods for `TestableIO.System.IO.Abstractions` interfaces (like `IFile`, `IDirectory`, etc.) that accept `AbsolutePath` from `TruePath` instead of raw strings. This combines the strongly-typed path safety of `TruePath` with the testability of `System.IO.Abstractions`.
+
+## TruePath 2.0 compatibility
+
+Requires TruePath 2.0.0 or later. Wrapper signatures are unchanged, but TruePath 2.0
+normalization and validation apply:
+
+- `CombineToPath` / `PathIO.Combine` and `PathJoin` / `PathIO.Join` preserve the injected
+  `IPath`'s System.IO behavior. They require a fully qualified result and throw
+  `ArgumentException` for relative results. Windows paths such as `\x`, `C:x`, and `C:`
+  no longer qualify as absolute.
+- These helpers do not use TruePath's new `/` semantics. For example, combining
+  `C:\base` and `\x` produces a non-absolute `\x` and is rejected; TruePath's `/`
+  instead produces `C:\x`.
+- Resolve relative input explicitly with `PathIO.GetFullPath(input, fileSystem)` or
+  `PathIO.GetFullPath(input, baseDirectory.Value, fileSystem)`. This keeps resolution
+  inside the supplied abstraction instead of using the real process current directory.
+- The current-directory `LocalPath.Value` is now `"."`, including a `GetRelativePath`
+  result for identical paths. Update string assertions and mock expectations accordingly.
+- `ChangeExtension` still delegates to `IPath.ChangeExtension`. Unlike TruePath's
+  stricter `WithExtension`, it can remove a dotfile's filename or change a root path.
+- Keep using `DirectoryIO.GetFiles(path, pattern, fileSystem)` or abstraction overloads
+  for injectable enumeration. TruePath.SystemIo's `GetFiles(LocalPathPattern)` accesses
+  the real filesystem.
 
 ## Features
 
